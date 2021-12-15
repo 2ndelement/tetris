@@ -7,7 +7,7 @@ import org.second.tetris.entity.Cell;
  * @version 1.0
  * 方块抽象类,由4个{@link Cell}组成
  */
-public abstract class Tetromino {
+public abstract class Tetromino implements Cloneable {
     protected Cell[] cells = new Cell[4];
 
     /**
@@ -43,4 +43,8 @@ public abstract class Tetromino {
      */
     public abstract void spin();
 
+    @Override
+    protected Object clone() throws CloneNotSupportedException {
+        return super.clone();
+    }
 }
