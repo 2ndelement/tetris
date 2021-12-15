@@ -29,4 +29,10 @@ public class Cell {
     public void moveRight(){
         this.x++;
     }
+    public void spin(Cell centerCell){
+        int tempX = x;
+        int tempY = y;
+        x = centerCell.getX() - centerCell.getY() + tempY;
+        y = centerCell.getX() + centerCell.getY() - tempX;
+    }
 }

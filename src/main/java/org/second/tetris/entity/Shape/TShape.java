@@ -12,6 +12,9 @@ public class TShape extends Tetromino {
 
     @Override
     public void spin() {
-
+        Cell center = cells[1];
+        for(Cell cell : cells){
+            cell.spin(center);
+        }
     }
 }
