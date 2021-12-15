@@ -1,10 +1,12 @@
-package org.second.tetris.entity;
+package org.second.tetris.entity.Shape;
 
 import javafx.scene.paint.Color;
+
 /**
+ * 单个格子类,4个格子组成一个{@link org.second.tetris.entity.Shape.Tetromino}
+ *
  * @author 吴晓鹏
  * @version 1.0
- * 单个格子类,4个格子组成一个{@link org.second.tetris.entity.Shape.Tetromino}
  */
 public class Cell {
     private int x;
@@ -24,16 +26,20 @@ public class Cell {
         this.y = y;
         this.color = color;
     }
-    public void moveDown(){
+
+    public void moveDown() {
         this.y--;
     }
-    public void moveLeft(){
+
+    public void moveLeft() {
         this.x--;
     }
-    public void moveRight(){
+
+    public void moveRight() {
         this.x++;
     }
-    public void spin(Cell centerCell){
+
+    public void spin(Cell centerCell) {
         int tempX = x;
         int tempY = y;
         x = centerCell.getX() - centerCell.getY() + tempY;

@@ -1,12 +1,12 @@
 package org.second.tetris.entity.Shape;
 
-import org.second.tetris.entity.Cell;
 import org.second.tetris.utils.TetrisColor;
 
 /**
+ * L形状的方块
+ *
  * @author 吴晓鹏
  * @version 1.0
- * L形状的方块
  */
 public class LShape extends Tetromino {
     public LShape() {
@@ -15,6 +15,7 @@ public class LShape extends Tetromino {
         cells[2] = new Cell(6, 18, TetrisColor.O);
         cells[3] = new Cell(6, 19, TetrisColor.O);
     }
+
     @Override
     //Todo:待测试
     public void spin() {

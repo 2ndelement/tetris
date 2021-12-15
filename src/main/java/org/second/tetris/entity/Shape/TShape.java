@@ -1,12 +1,12 @@
 package org.second.tetris.entity.Shape;
 
-import org.second.tetris.entity.Cell;
 import org.second.tetris.utils.TetrisColor;
 
 /**
+ * T形状的方块
+ *
  * @author 吴晓鹏
  * @version 1.0
- * T形状的方块
  */
 public class TShape extends Tetromino {
     public TShape() {

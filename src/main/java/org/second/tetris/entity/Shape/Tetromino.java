@@ -1,7 +1,5 @@
 package org.second.tetris.entity.Shape;
 
-import org.second.tetris.entity.Cell;
-
 /**
  * @author 吴晓鹏
  * @version 1.0
@@ -39,10 +37,16 @@ public abstract class Tetromino implements Cloneable {
     }
 
     /**
-     * 方块的旋转
+     * 旋转该块
      */
     public abstract void spin();
 
+    /**
+     * 克隆一个相同状态完全相同的块,可用于预演方块变化
+     *
+     * @return 状态相同的一个块
+     * @throws CloneNotSupportedException 不支持克隆错误
+     */
     @Override
     protected Object clone() throws CloneNotSupportedException {
         return super.clone();
