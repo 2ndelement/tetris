@@ -1,6 +1,8 @@
 package org.second.tetris.entity.Shape;
 
 import org.second.tetris.entity.Cell;
+import org.second.tetris.utils.TetrisColor;
+
 /**
  * @author 吴晓鹏
  * @version 1.0

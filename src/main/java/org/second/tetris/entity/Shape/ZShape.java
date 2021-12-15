@@ -1,6 +1,7 @@
 package org.second.tetris.entity.Shape;
 
 import org.second.tetris.entity.Cell;
+import org.second.tetris.utils.TetrisColor;
 
 public class ZShape extends Tetromino {
     public ZShape() {

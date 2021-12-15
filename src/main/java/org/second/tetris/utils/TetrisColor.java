@@ -1,4 +1,4 @@
-package org.second.tetris.entity.Shape;
+package org.second.tetris.utils;
 
 import javafx.scene.paint.Color;
 
