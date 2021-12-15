@@ -2,6 +2,11 @@ package org.second.tetris.entity.Shape;
 
 import javafx.scene.paint.Color;
 
+/**
+ * @author 吴晓鹏
+ * @version 1.0
+ * 存储各种方块的颜色
+ */
 public class TetrisColor {
     public static Color T = Color.PURPLE;
     public static Color Z = Color.RED;

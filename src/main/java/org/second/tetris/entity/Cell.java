@@ -1,7 +1,11 @@
 package org.second.tetris.entity;
 
 import javafx.scene.paint.Color;
-
+/**
+ * @author 吴晓鹏
+ * @version 1.0
+ * 单个格子类,4个格子组成一个{@link org.second.tetris.entity.Shape.Tetromino}
+ */
 public class Cell {
     private int x;
     private int y;
