@@ -1,4 +1,4 @@
-package org.second.tetris.app;
+package org.second.tetris;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
