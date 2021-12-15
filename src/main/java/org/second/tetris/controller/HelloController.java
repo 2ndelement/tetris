@@ -1,4 +1,4 @@
-package org.second.tetris;
+package org.second.tetris.controller;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
