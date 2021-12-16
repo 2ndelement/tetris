@@ -3,6 +3,12 @@ package org.second.tetris.controller;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 
+/**
+ * 首页控制类
+ *
+ * @author 孙士杰
+ * @version 1.0
+ */
 public class HelloController {
     @FXML
     private Label homePage;
