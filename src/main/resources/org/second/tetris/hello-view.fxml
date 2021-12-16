@@ -1,5 +1,4 @@
 <?xml version="1.1" encoding="UTF-8"?>
-
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
@@ -30,5 +29,4 @@
       <font>
          <Font size="15.0" />
       </font></Button>
-
 </VBox>
