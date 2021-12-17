@@ -7,6 +7,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import org.second.tetris.HelloApplication;
+import org.second.tetris.test;
 
 import java.io.IOException;
 
@@ -27,9 +28,12 @@ public class HelloController {
 
     /*单人模式按钮 还需要改单机后效果*/
     @FXML
-    protected void onSinglePlayerModeClick() {
+    protected void onSinglePlayerModeClick() throws IOException{
         homePage.setText("进入单机模式");
-        gotoSinglePlayerMode();
+        test test = new test();
+        Stage stage = new Stage();
+        test.start(stage);
+        //gotoSinglePlayerMode();
     }
 
     /*得分记录按钮 */

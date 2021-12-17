@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="536.0" prefWidth="408.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.second.tetris.controller.HelloController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="640.0" prefWidth="505.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.second.tetris.controller.HelloController">
    <children>
       <Button layoutX="140.0" layoutY="133.0" mnemonicParsing="false" onAction="#onSinglePlayerModeClick" prefHeight="51.0" prefWidth="127.0" text="单机模式" />
       <Button layoutX="140.0" layoutY="242.0" mnemonicParsing="false" onAction="#onScoreRecordClick" prefHeight="51.0" prefWidth="127.0" text="得分记录" />
