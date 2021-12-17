@@ -27,12 +27,15 @@ public class HelloApplication extends Application {
         pristage = stage;
         //如果没有该用户即创建一个文件存储信息。
         try{
-            File newfile = new File("C:\\user.txt");
+            File newfile = new File("C:\\AppData\\user.txt");
             //查看该路径是否有该文件。
             if(!newfile.exists()){
                 newfile.createNewFile();
-                BufferedWriter writer = new BufferedWriter(new FileWriter("user.txt",true));
-                writer.write(UserUtils.generateName());
+                BufferedWriter writer = new BufferedWriter(new FileWriter(newfile));
+                String string = UserUtils.generateName();
+                writer.write(string);
+                writer.flush();
+                writer.close();
             }
         }catch(IOException e){
             e.printStackTrace();
