@@ -10,10 +10,10 @@ import org.second.tetris.utils.TetrisColor;
  */
 public class IShape extends Tetromino {
     public IShape() {
-        cells[0] = new Cell(3, 19, TetrisColor.I);
-        cells[1] = new Cell(4, 19, TetrisColor.I);
-        cells[2] = new Cell(5, 19, TetrisColor.I);
-        cells[3] = new Cell(6, 19, TetrisColor.I);
+        cells[0] = new Cell(3, 0, TetrisColor.I);
+        cells[1] = new Cell(4, 0, TetrisColor.I);
+        cells[2] = new Cell(5, 0, TetrisColor.I);
+        cells[3] = new Cell(6, 0, TetrisColor.I);
     }
 
     @Override

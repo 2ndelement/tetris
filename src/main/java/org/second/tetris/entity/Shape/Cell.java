@@ -27,8 +27,16 @@ public class Cell {
         this.color = color;
     }
 
-    public void moveDown() {
+    public Color getColor() {
+        return color;
+    }
+
+    public void moveUp() {
         this.y--;
+    }
+
+    public void moveDown() {
+        this.y++;
     }
 
     public void moveLeft() {
