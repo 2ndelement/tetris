@@ -17,6 +17,7 @@ import java.io.*;
  */
 public class HelloApplication extends Application {
     private static Stage pristage;
+    private User user;
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
@@ -33,6 +34,7 @@ public class HelloApplication extends Application {
                 newfile.createNewFile();
                 BufferedWriter writer = new BufferedWriter(new FileWriter(newfile));
                 String string = UserUtils.generateName();
+                user = new User(string);
                 writer.write(string);
                 writer.flush();
                 writer.close();
@@ -41,10 +43,13 @@ public class HelloApplication extends Application {
             e.printStackTrace();
         }
     }
+
+    public User getUser(){
+        return this.user;
+    }
     /**
      * 增加close方法使得界面可以关闭。
      */
-
     public static void close(){
         pristage.close();
     }
