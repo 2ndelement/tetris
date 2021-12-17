@@ -26,7 +26,7 @@ public class HelloController {
         homePage.setText("欢迎体验俄罗斯方块！");
     }
 
-    /*单人模式按钮 还需要改单机后效果*/
+    /**单人模式按钮 还需要改单机后效果*/
     @FXML
     protected void onSinglePlayerModeClick() throws IOException{
         homePage.setText("进入单机模式");
@@ -50,7 +50,7 @@ public class HelloController {
      * 窗口跳转
      *
      */
-    public static void gotoSinglePlayerMode(){
+    /*public static void gotoSinglePlayerMode(){
         Stage singlePlayer = new Stage();
         Parent root = null;
         try {
@@ -61,5 +61,5 @@ public class HelloController {
         singlePlayer.setTitle("单人游戏");
         singlePlayer.setScene(new Scene(root));
         singlePlayer.show();
-    }
+    }*/
 }
