@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<VBox alignment="BASELINE_CENTER" prefHeight="400.0" prefWidth="600.0"
+        xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1"
+        fx:controller="org.second.tetris.controller.MainController">
+<Label layoutX="244.0" layoutY="70.0" text="Tetris">
+<font>
+    <Font name="Consolas Bold" size="36.0"/>
+</font>
+</Label>
+<VBox alignment="BASELINE_CENTER" prefHeight="0.0" prefWidth="600.0" spacing="20.0">
+<Button text="单人游戏">
+
+</Button>
+<Button mnemonicParsing="false" text="得分记录">
+
+</Button>
+<Button mnemonicParsing="false" text="游戏介绍">
+
+</Button>
+
+</VBox>
+        </VBox>
