@@ -30,6 +30,7 @@ public class HelloController {
     @FXML
     protected void onSinglePlayerModeClick() throws IOException{
         homePage.setText("进入单机模式");
+        HelloApplication.close();//调出单机模式界面关闭主界面。
         test test = new test();
         Stage stage = new Stage();
         test.start(stage);

@@ -11,7 +11,7 @@ public class test extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("singlePlayer-view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 420, 500);
+        Scene scene = new Scene(fxmlLoader.load(), 650, 450);
         stage.setTitle("俄罗斯方块");
         stage.setScene(scene);
         stage.show();

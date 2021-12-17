@@ -16,13 +16,15 @@ import java.io.*;
  * @version 1.0
  */
 public class HelloApplication extends Application {
+    private static Stage pristage;
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 420, 500);
+        Scene scene = new Scene(fxmlLoader.load(), 650, 450);
         stage.setTitle("俄罗斯方块");
         stage.setScene(scene);
         stage.show();
+        pristage = stage;
         //如果没有该用户即创建一个文件存储信息。
         try{
             File newfile = new File("C:\\user.txt");
@@ -35,6 +37,13 @@ public class HelloApplication extends Application {
         }catch(IOException e){
             e.printStackTrace();
         }
+    }
+    /**
+     * 增加close方法使得界面可以关闭。
+     */
+
+    public static void close(){
+        pristage.close();
     }
 
     public static void main(String[] args) {
