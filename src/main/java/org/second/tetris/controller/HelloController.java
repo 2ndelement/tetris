@@ -1,8 +1,21 @@
 package org.second.tetris.controller;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.stage.Stage;
+import org.second.tetris.HelloApplication;
 
+import java.io.IOException;
+
+/**
+ * 首页控制类
+ *
+ * @author 孙士杰
+ * @version 1.0
+ */
 public class HelloController {
     @FXML
     private Label homePage;
@@ -15,7 +28,9 @@ public class HelloController {
     /*单人模式按钮 还需要改单机后效果*/
     @FXML
     protected void onSinglePlayerModeClick() {
-        homePage.setText("进入单机模式");}
+        homePage.setText("进入单机模式");
+        gotoSinglePlayerMode();
+    }
 
     /*得分记录按钮 */
     @FXML
@@ -26,4 +41,21 @@ public class HelloController {
     @FXML
     protected void onGameIntroductionClick() {
         homePage.setText("这个是游戏介绍");}
+
+    /**
+     * 窗口跳转
+     *
+     */
+    public static void gotoSinglePlayerMode(){
+        Stage singlePlayer = new Stage();
+        Parent root = null;
+        try {
+            root = FXMLLoader.load(HelloApplication.class.getResource("singlePlayer-view.fxml"));
+        } catch (IOException e){
+            e.printStackTrace();
+        }
+        singlePlayer.setTitle("单人游戏");
+        singlePlayer.setScene(new Scene(root));
+        singlePlayer.show();
+    }
 }
