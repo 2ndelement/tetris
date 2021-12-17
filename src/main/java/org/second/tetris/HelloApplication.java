@@ -26,6 +26,7 @@ public class HelloApplication extends Application {
         //如果没有该用户即创建一个文件存储信息。
         try{
             File newfile = new File("C:\\user.txt");
+            //查看该路径是否有该文件。
             if(!newfile.exists()){
                 newfile.createNewFile();
                 BufferedWriter writer = new BufferedWriter(new FileWriter("user.txt",true));
