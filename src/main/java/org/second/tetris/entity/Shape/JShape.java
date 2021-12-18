@@ -10,10 +10,11 @@ import org.second.tetris.utils.TetrisColor;
  */
 public class JShape extends Tetromino {
     public JShape() {
-        cells[0] = new Cell(4, 0, TetrisColor.J);
-        cells[1] = new Cell(4, 1, TetrisColor.J);
-        cells[2] = new Cell(5, 1, TetrisColor.J);
-        cells[3] = new Cell(6, 1, TetrisColor.J);
+        cells[0] = new Cell(4, 0);
+        cells[1] = new Cell(4, 1);
+        cells[2] = new Cell(5, 1);
+        cells[3] = new Cell(6, 1);
+        color = TetrisColor.J;
     }
 
     @Override

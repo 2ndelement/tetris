@@ -6,15 +6,19 @@ import javafx.scene.Scene;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import org.second.tetris.entity.AchoredRectanglesManager;
 import org.second.tetris.entity.GameShape;
 import org.second.tetris.entity.Shape.Cell;
 import org.second.tetris.entity.Shape.ShapeFactory;
+import org.second.tetris.utils.TetrisColor;
 
+import java.net.URL;
 import java.util.Arrays;
+import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -32,9 +36,15 @@ public class Tetris extends Application {
     public static int score = 0;
     public static boolean isOver = false;
     private static AchoredRectanglesManager manager = new AchoredRectanglesManager(game, MESH);
+    private static MediaPlayer mediaPlayer;
 
     @Override
     public void start(Stage stage) throws Exception {
+        Random random = new Random();
+        URL music = Tetris.class.getResource(random.nextInt(3) + 1 + ".mp3");
+        Media media = new Media(String.valueOf(music));
+        mediaPlayer = new MediaPlayer(media);
+        mediaPlayer.setOnReady(mediaPlayer::play);
         drawBackgroud();
         stage.setScene(scene);
         stage.setTitle("TETRIS");
@@ -66,12 +76,12 @@ public class Tetris extends Application {
     }
 
     private void MoveRight() {
-        currentShape.moveRight(MESH);
+        currentShape.moveRight();
         flushPrew();
     }
 
     private void MoveDown() {
-        if (!currentShape.moveDown(MESH)) {
+        if (!currentShape.moveDown()) {
             removeShape(previewShape);
             score += manager.anchorShape(currentShape);
             addNewShape();
@@ -102,7 +112,7 @@ public class Tetris extends Application {
                     LSpin();
                     break;
                 case SPACE:
-                    while (currentShape.moveDown(MESH)) ;
+                    while (currentShape.moveDown()) ;
                     MoveDown();
                     break;
                 case F:
@@ -112,42 +122,42 @@ public class Tetris extends Application {
     }
 
     private void LSpin() {
-        currentShape.lSpin(MESH);
+        currentShape.lSpin();
         flushPrew();
     }
 
     private void RSpin() {
-        currentShape.rSpin(MESH);
+        currentShape.rSpin();
         flushPrew();
     }
 
     private void MoveLeft() {
-        currentShape.moveLeft(MESH);
+        currentShape.moveLeft();
         flushPrew();
     }
 
     private void flushPrew() {
         removeShape(previewShape);
-        previewShape = currentShape.createPrew(MESH);
+        previewShape = currentShape.createPrew();
         drawShape(previewShape);
     }
 
 
     private void drawBackgroud() {
-        game.setBackground(new Background(new BackgroundFill(Color.GRAY, null, null)));
+        game.setBackground(new Background(new BackgroundFill(TetrisColor.GRID, null, null)));
         for (int i = 0; i < XMAX; i++) {
             for (int j = 0; j < YMAX; j++) {
                 Rectangle rect = new Rectangle(LEFT + i * SIZE, j * SIZE, SIZE - 1, SIZE - 1);
-                rect.setFill(Color.BLACK);
+                rect.setFill(TetrisColor.BACKGROUND);
                 game.getChildren().add(rect);
             }
         }
     }
 
     private void addNewShape() {
-        currentShape = new GameShape(ShapeFactory.nextShape());
+        currentShape = new GameShape(ShapeFactory.nextShape(), MESH);
         checkOver(currentShape);
-        previewShape = currentShape.createPrew(MESH);
+        previewShape = currentShape.createPrew();
         drawShape(previewShape);
         drawShape(currentShape);
     }

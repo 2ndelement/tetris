@@ -11,7 +11,6 @@ import javafx.scene.paint.Color;
 public class Cell {
     private int x;
     private int y;
-    private Color color;
 
     public int getX() {
         return x;
@@ -21,14 +20,9 @@ public class Cell {
         return y;
     }
 
-    public Cell(int x, int y, Color color) {
+    public Cell(int x, int y) {
         this.x = x;
         this.y = y;
-        this.color = color;
-    }
-
-    public Color getColor() {
-        return color;
     }
 
     public void moveUp() {

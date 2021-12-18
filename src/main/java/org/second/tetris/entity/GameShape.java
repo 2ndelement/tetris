@@ -1,9 +1,14 @@
 package org.second.tetris.entity;
 
+import javafx.scene.effect.Glow;
+import javafx.scene.effect.Lighting;
 import javafx.scene.shape.Rectangle;
 import org.second.tetris.Tetris;
 import org.second.tetris.entity.Shape.Cell;
+import org.second.tetris.entity.Shape.IShape;
+import org.second.tetris.entity.Shape.OShape;
 import org.second.tetris.entity.Shape.Tetromino;
+import org.second.tetris.utils.TetrisColor;
 
 import java.util.Arrays;
 import java.util.Iterator;
@@ -11,6 +16,30 @@ import java.util.Iterator;
 public class GameShape implements Iterable<Rectangle> {
     private Tetromino shape;
     private Rectangle[] rects = new Rectangle[4];
+    private static final int R = 0;
+    private static final int L = 1;
+    private static final Cell[][] ITabel = {
+            {new Cell(0, 0), new Cell(-2, 0), new Cell(1, 0), new Cell(-2, -1), new Cell(1, 2)},
+            {new Cell(0, 0), new Cell(2, 0), new Cell(-1, 0), new Cell(2, 1), new Cell(-1, -2)},
+            {new Cell(0, 0), new Cell(-1, 0), new Cell(2, 0), new Cell(-1, 2), new Cell(2, -1)},
+            {new Cell(0, 0), new Cell(1, 0), new Cell(-2, 0), new Cell(1, -2), new Cell(-2, 1)},
+            {new Cell(0, 0), new Cell(2, 0), new Cell(-1, 0), new Cell(2, 1), new Cell(-1, -2)},
+            {new Cell(0, 0), new Cell(-2, 0), new Cell(1, 0), new Cell(-2, -1), new Cell(1, 2)},
+            {new Cell(0, 0), new Cell(1, 0), new Cell(-2, 0), new Cell(1, -2), new Cell(-2, 1)},
+            {new Cell(0, 0), new Cell(-1, 0), new Cell(2, 0), new Cell(-1, 2), new Cell(2, -1)}
+    };
+    private static final Cell[][] otherTable = {
+            {new Cell(0, 0), new Cell(-1, 0), new Cell(-1, +1), new Cell(0, -2), new Cell(-1, -2)},
+            {new Cell(0, 0), new Cell(1, 0), new Cell(1, -1), new Cell(0, 2), new Cell(1, 2)},
+            {new Cell(0, 0), new Cell(1, 0), new Cell(1, -1), new Cell(0, 2), new Cell(1, 2)},
+            {new Cell(0, 0), new Cell(-1, 0), new Cell(-1, +1), new Cell(0, -2), new Cell(-1, -2)},
+            {new Cell(0, 0), new Cell(1, 0), new Cell(1, +1), new Cell(0, -2), new Cell(1, -2)},
+            {new Cell(0, 0), new Cell(-1, 0), new Cell(-1, -1), new Cell(0, 2), new Cell(-1, 2)},
+            {new Cell(0, 0), new Cell(-1, 0), new Cell(-1, -1), new Cell(0, 2), new Cell(-1, 2)},
+            {new Cell(0, 0), new Cell(1, 0), new Cell(1, +1), new Cell(0, -2), new Cell(1, -2)}
+    };
+    private int[][] mesh;
+    private static int status = 0;
 
     public Tetromino getShape() {
         return shape;
@@ -20,10 +49,10 @@ public class GameShape implements Iterable<Rectangle> {
         return rects[index];
     }
 
-    public boolean moveDown(int[][] mesh) {
+    public boolean moveDown() {
         shape.moveDown();
-        if (isMoveLegal(mesh)) {
-            RedrawShape();
+        if (isLegal()) {
+            reDrawShape();
             return true;
         } else {
             shape.moveUp();
@@ -31,10 +60,10 @@ public class GameShape implements Iterable<Rectangle> {
         }
     }
 
-    public boolean moveLeft(int[][] mesh) {
+    public boolean moveLeft() {
         shape.moveLeft();
-        if (isMoveLegal(mesh)) {
-            RedrawShape();
+        if (isLegal()) {
+            reDrawShape();
             return true;
         } else {
             shape.moveRight();
@@ -42,10 +71,10 @@ public class GameShape implements Iterable<Rectangle> {
         }
     }
 
-    public boolean moveRight(int[][] mesh) {
+    public boolean moveRight() {
         shape.moveRight();
-        if (isMoveLegal(mesh)) {
-            RedrawShape();
+        if (isLegal()) {
+            reDrawShape();
             return true;
         } else {
             shape.moveLeft();
@@ -53,71 +82,149 @@ public class GameShape implements Iterable<Rectangle> {
         }
     }
 
-    public boolean lSpin(int[][] mesh) {
+    public boolean lSpin() {
+        if (shape instanceof OShape) {
+            return false;
+        }
         shape.lSpin();
-        if (isSpinLegal(mesh)) {
-            KickWallHandle();
-            RedrawShape();
-            return true;
-        } else {
+        if (!KickWallHandle(L)) {
             shape.rSpin();
             return false;
         }
-    }
-
-    public boolean rSpin(int[][] mesh) {
-        shape.rSpin();
-        if (isSpinLegal(mesh)) {
-            KickWallHandle();
-            RedrawShape();
-            return true;
-        } else {
-            shape.lSpin();
-            return false;
-        }
-    }
-
-    private void KickWallHandle() {
-        int Lmove = 0;
-        int Rmove = 0;
-        for (Cell cell : shape) {
-            int x = cell.getX();
-            if (x < 0) {
-                Rmove++;
-            }
-            if (x > Tetris.XMAX - 1) {
-                Lmove++;
-            }
-        }
-        while (Rmove-- > 0) {
-            shape.moveRight();
-        }
-        while (Lmove-- > 0) {
-            shape.moveLeft();
-        }
-    }
-
-    public GameShape createPrew(int[][] mesh) {
-        GameShape prewShape = new GameShape(shape.clone());
-        for (Rectangle rect : prewShape) {
-            rect.setOpacity(0.5);
-        }
-        while (prewShape.moveDown(mesh)) ;
-        return prewShape;
-    }
-
-    private boolean isSpinLegal(int[][] mesh) {
-        for (Cell cell : shape) {
-            int x = cell.getX();
-            int y = cell.getY();
-            if ((x >= 0 && x <= Tetris.XMAX - 1 && y > 0 && y <= Tetris.YMAX - 1 && mesh[y][x] == 1) || y > Tetris.YMAX - 1) {
-                return false;
-            }
-        }
+        reDrawShape();
         return true;
     }
 
-    private boolean isMoveLegal(int[][] mesh) {
+    public boolean rSpin() {
+        if (shape instanceof OShape) {
+            return false;
+        }
+        shape.rSpin();
+        if (!KickWallHandle(R)) {
+            shape.lSpin();
+            return false;
+        }
+        reDrawShape();
+        return true;
+    }
+
+    private boolean KickWallHandle(int direction) {
+        Cell[][] kickTable = null;
+        if (shape instanceof IShape) {
+            kickTable = ITabel;
+        } else {
+            kickTable = otherTable;
+        }
+        switch (status) {
+            case R:
+                switch (status) {
+                    case 0:
+                        status = 1;
+                        return tryTable(kickTable[0]);
+                    case 1:
+                        status = 2;
+                        return tryTable(kickTable[2]);
+                    case 2:
+                        status = 3;
+                        return tryTable(kickTable[4]);
+                    case 3:
+                        status = 0;
+                        return tryTable(kickTable[6]);
+                }
+            case L:
+                switch (status) {
+                    case 0:
+                        status = 3;
+                        return tryTable(kickTable[7]);
+                    case 1:
+                        status = 0;
+                        return tryTable(kickTable[1]);
+                    case 2:
+                        status = 1;
+                        return tryTable(kickTable[3]);
+                    case 3:
+                        status = 2;
+                        return tryTable(kickTable[5]);
+                }
+        }
+        return false;
+    }
+
+    private boolean tryTable(Cell[] table) {
+        for (Cell cell : table) {
+            move(cell);
+            if (isLegal()) {
+                return true;
+            } else {
+                deMove(cell);
+            }
+        }
+        return false;
+    }
+
+    private void move(Cell cell) {
+        int x = cell.getX();
+        int y = cell.getY();
+        if (x < 0) {
+            x = -x;
+            while (x-- > 0) {
+                shape.moveLeft();
+            }
+        } else {
+            while (x-- > 0) {
+                shape.moveRight();
+            }
+        }
+        if (y < 0) {
+            y = -y;
+            while (y-- > 0) {
+                shape.moveDown();
+            }
+        } else {
+            while (y-- > 0) {
+                shape.moveUp();
+            }
+        }
+
+    }
+
+    private void deMove(Cell cell) {
+        int x = cell.getX();
+        int y = cell.getY();
+        if (x < 0) {
+            x = -x;
+            while (x-- > 0) {
+                shape.moveRight();
+            }
+        } else {
+            while (x-- > 0) {
+                shape.moveLeft();
+            }
+        }
+        if (y < 0) {
+            y = -y;
+            while (y-- > 0) {
+                shape.moveUp();
+            }
+        } else {
+            while (y-- > 0) {
+                shape.moveDown();
+            }
+        }
+
+    }
+
+    public GameShape createPrew() {
+        GameShape prewShape = new GameShape(shape.clone(), mesh);
+        for (Rectangle rect : prewShape) {
+            rect.setOpacity(TetrisColor.Opacity);
+            rect.setEffect(new Glow(10));
+        }
+        while (prewShape.moveDown()) ;
+        return prewShape;
+    }
+
+    private boolean isLegal() {
         for (Cell cell : shape) {
             int x = cell.getX();
             int y = cell.getY();
@@ -128,7 +235,7 @@ public class GameShape implements Iterable<Rectangle> {
         return true;
     }
 
-    private void RedrawShape() {
+    private void reDrawShape() {
         int i = 0;
         for (Cell cell : shape) {
             int x = cell.getX();
@@ -143,12 +250,14 @@ public class GameShape implements Iterable<Rectangle> {
         return Arrays.stream(rects).iterator();
     }
 
-    public GameShape(Tetromino shape) {
+    public GameShape(Tetromino shape, int[][] mesh) {
         this.shape = shape;
+        this.mesh = mesh;
         int i = 0;
         for (Cell cell : shape) {
             rects[i] = new Rectangle(Tetris.LEFT + cell.getX() * Tetris.SIZE, cell.getY() * Tetris.SIZE, Tetris.SIZE - 1, Tetris.SIZE - 1);
-            rects[i++].setFill(cell.getColor());
+            rects[i].setEffect(new Lighting());
+            rects[i++].setFill(shape.getColor());
         }
     }
 }

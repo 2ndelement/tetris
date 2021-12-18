@@ -1,8 +1,7 @@
 module org.second.tetris {
     requires javafx.controls;
     requires javafx.fxml;
-
-    requires org.kordamp.bootstrapfx.core;
+    requires javafx.media;
     requires org.junit.jupiter.api;
 
     exports org.second.tetris;

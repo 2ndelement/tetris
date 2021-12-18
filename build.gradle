@@ -29,14 +29,14 @@ application {
 
 javafx {
     version = '11.0.2'
-    modules = ['javafx.controls', 'javafx.fxml']
+    modules = ['javafx.controls', 'javafx.fxml','javafx.media']
 }
 
 dependencies {
     implementation('org.kordamp.bootstrapfx:bootstrapfx-core:0.4.0')
     implementation 'org.junit.jupiter:junit-jupiter:5.7.0'
     implementation 'junit:junit:4.13.1'
-
+    implementation 'org.openjfx:javafx-media:17.0.0.1'
     testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")
 }
