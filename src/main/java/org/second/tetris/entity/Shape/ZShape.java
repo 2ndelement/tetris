@@ -17,11 +17,18 @@ public class ZShape extends Tetromino {
     }
 
     @Override
-    //Todo:待测试
-    public void spin() {
+    public void rSpin() {
         Cell center = cells[2];
         for (Cell cell : cells) {
-            cell.spin(center);
+            cell.rSpin(center);
+        }
+    }
+
+    @Override
+    public void lSpin() {
+        Cell center = cells[2];
+        for (Cell cell : cells) {
+            cell.lSpin(center);
         }
     }
 }
