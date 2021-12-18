@@ -66,12 +66,12 @@ public class Tetris extends Application {
     }
 
     private void MoveRight() {
-        currentShape.moveRight(MESH);
+        currentShape.moveRight();
         flushPrew();
     }
 
     private void MoveDown() {
-        if (!currentShape.moveDown(MESH)) {
+        if (!currentShape.moveDown()) {
             removeShape(previewShape);
             score += manager.anchorShape(currentShape);
             addNewShape();
@@ -102,7 +102,7 @@ public class Tetris extends Application {
                     LSpin();
                     break;
                 case SPACE:
-                    while (currentShape.moveDown(MESH)) ;
+                    while (currentShape.moveDown()) ;
                     MoveDown();
                     break;
                 case F:
@@ -112,23 +112,23 @@ public class Tetris extends Application {
     }
 
     private void LSpin() {
-        currentShape.lSpin(MESH);
+        currentShape.lSpin();
         flushPrew();
     }
 
     private void RSpin() {
-        currentShape.rSpin(MESH);
+        currentShape.rSpin();
         flushPrew();
     }
 
     private void MoveLeft() {
-        currentShape.moveLeft(MESH);
+        currentShape.moveLeft();
         flushPrew();
     }
 
     private void flushPrew() {
         removeShape(previewShape);
-        previewShape = currentShape.createPrew(MESH);
+        previewShape = currentShape.createPrew();
         drawShape(previewShape);
     }
 
@@ -145,9 +145,9 @@ public class Tetris extends Application {
     }
 
     private void addNewShape() {
-        currentShape = new GameShape(ShapeFactory.nextShape());
+        currentShape = new GameShape(ShapeFactory.nextShape(), MESH);
         checkOver(currentShape);
-        previewShape = currentShape.createPrew(MESH);
+        previewShape = currentShape.createPrew();
         drawShape(previewShape);
         drawShape(currentShape);
     }

@@ -12,10 +12,11 @@ public class IShape extends Tetromino {
     private int status = 0;
 
     public IShape() {
-        cells[0] = new Cell(3, 1, TetrisColor.I);
-        cells[1] = new Cell(4, 1, TetrisColor.I);
-        cells[2] = new Cell(5, 1, TetrisColor.I);
-        cells[3] = new Cell(6, 1, TetrisColor.I);
+        cells[0] = new Cell(3, 1);
+        cells[1] = new Cell(4, 1);
+        cells[2] = new Cell(5, 1);
+        cells[3] = new Cell(6, 1);
+        color = TetrisColor.I;
     }
 
     @Override

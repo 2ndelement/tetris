@@ -1,5 +1,7 @@
 package org.second.tetris.entity.Shape;
 
+import javafx.scene.paint.Color;
+
 import java.util.Arrays;
 import java.util.Iterator;
 
@@ -10,6 +12,7 @@ import java.util.Iterator;
  */
 public abstract class Tetromino implements Cloneable, Iterable<Cell> {
     protected Cell[] cells = new Cell[4];
+    protected Color color;
 
     public void setCells(Cell[] cells) {
         this.cells = cells;
@@ -75,7 +78,7 @@ public abstract class Tetromino implements Cloneable, Iterable<Cell> {
             Tetromino newTetromino = (Tetromino) super.clone();
             Cell[] newCells = new Cell[4];
             for (int i = 0; i < 4; i++) {
-                newCells[i] = new Cell(cells[i].getX(), cells[i].getY(), cells[i].getColor());
+                newCells[i] = new Cell(cells[i].getX(), cells[i].getY());
             }
             newTetromino.setCells(newCells);
             return newTetromino;
@@ -83,5 +86,9 @@ public abstract class Tetromino implements Cloneable, Iterable<Cell> {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public Color getColor() {
+        return color;
     }
 }

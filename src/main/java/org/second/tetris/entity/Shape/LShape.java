@@ -10,10 +10,11 @@ import org.second.tetris.utils.TetrisColor;
  */
 public class LShape extends Tetromino {
     public LShape() {
-        cells[0] = new Cell(4, 1, TetrisColor.L);
-        cells[1] = new Cell(5, 1, TetrisColor.L);
-        cells[2] = new Cell(6, 1, TetrisColor.L);
-        cells[3] = new Cell(6, 0, TetrisColor.L);
+        cells[0] = new Cell(4, 1);
+        cells[1] = new Cell(5, 1);
+        cells[2] = new Cell(6, 1);
+        cells[3] = new Cell(6, 0);
+        color = TetrisColor.L;
     }
 
     @Override
