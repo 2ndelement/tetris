@@ -1,16 +1,11 @@
 package org.second.tetris.controller;
 
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import org.second.tetris.HelloApplication;
+import org.second.tetris.Scoreboard;
 import org.second.tetris.Tetris;
-import org.second.tetris.test;
-
-import java.io.IOException;
 
 /**
  * 首页控制类
@@ -43,8 +38,13 @@ public class HelloController {
 
     /*得分记录按钮 */
     @FXML
-    protected void onScoreRecordClick() {
+    protected void onScoreRecordClick() throws Exception {
         homePage.setText("显示得分");
+        HelloApplication.close();
+        Scoreboard scorebord = new Scoreboard();
+
+        Stage stage = new Stage();
+        scorebord.start(stage);
     }
 
     /*游戏介绍*/
@@ -52,7 +52,5 @@ public class HelloController {
     protected void onGameIntroductionClick() {
         homePage.setText("这个是游戏介绍");
     }
-
-
 
 }
