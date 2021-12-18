@@ -10,18 +10,25 @@ import org.second.tetris.utils.TetrisColor;
  */
 public class JShape extends Tetromino {
     public JShape() {
-        cells[0] = new Cell(4, 19, TetrisColor.O);
-        cells[1] = new Cell(4, 18, TetrisColor.O);
-        cells[2] = new Cell(5, 18, TetrisColor.O);
-        cells[3] = new Cell(6, 18, TetrisColor.O);
+        cells[0] = new Cell(4, 0, TetrisColor.J);
+        cells[1] = new Cell(4, 1, TetrisColor.J);
+        cells[2] = new Cell(5, 1, TetrisColor.J);
+        cells[3] = new Cell(6, 1, TetrisColor.J);
     }
 
     @Override
-    //Todo:待测试
-    public void spin() {
+    public void rSpin() {
         Cell center = cells[2];
         for (Cell cell : cells) {
-            cell.spin(center);
+            cell.rSpin(center);
+        }
+    }
+
+    @Override
+    public void lSpin() {
+        Cell center = cells[2];
+        for (Cell cell : cells) {
+            cell.lSpin(center);
         }
     }
 }

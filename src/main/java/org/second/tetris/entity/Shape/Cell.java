@@ -27,8 +27,16 @@ public class Cell {
         this.color = color;
     }
 
-    public void moveDown() {
+    public Color getColor() {
+        return color;
+    }
+
+    public void moveUp() {
         this.y--;
+    }
+
+    public void moveDown() {
+        this.y++;
     }
 
     public void moveLeft() {
@@ -39,10 +47,17 @@ public class Cell {
         this.x++;
     }
 
-    public void spin(Cell centerCell) {
+    public void lSpin(Cell centerCell) {
         int tempX = x;
         int tempY = y;
         x = centerCell.getX() - centerCell.getY() + tempY;
         y = centerCell.getX() + centerCell.getY() - tempX;
+    }
+
+    public void rSpin(Cell centerCell) {
+        int tempX = x;
+        int tempY = y;
+        x = centerCell.getX() + centerCell.getY() - tempY;
+        y = centerCell.getY() - centerCell.getX() + tempX;
     }
 }
