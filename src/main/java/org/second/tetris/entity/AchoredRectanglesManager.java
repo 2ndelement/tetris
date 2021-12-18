@@ -41,10 +41,8 @@ public class AchoredRectanglesManager {
             }
         }
         if (erasedLines.size() != 0) {
-            int beginLine = Collections.min(erasedLines) - 1;
-            int moveLength = erasedLines.size();
-            dropLines(beginLine, moveLength);
-            erasedLines.clear();
+            int beginLine = Collections.max(erasedLines) + 1;
+            dropLines(beginLine);
             switch (erasedLines.size()) {
                 case 1:
                     score = 40;
@@ -59,6 +57,7 @@ public class AchoredRectanglesManager {
                     score = 1200;
                     break;
             }
+            erasedLines.clear();
             return score;
         }
         return 0;
@@ -110,18 +109,26 @@ public class AchoredRectanglesManager {
         this.MESH = MESH;
     }
 
-    private void dropLines(int dropFrom, int len) {
-        int dropTo = getTopLine();
-        for (int line = dropFrom; line >= dropTo; line--) {
-            MESH[line + len] = MESH[line];
-            MESH[line] = new int[MESH[line].length];
-            for (Rectangle rect : rects[line]) {
+    private void dropLines(int dropFrom) {
+        int topLine = getTopLine();
+        for (int line = dropFrom; line >= topLine; line--) {
+            if (!erasedLines.contains(line))
+                dropLine(line);
+        }
+    }
+
+    private void dropLine(int y) {
+        while (y + 1 < rects.length && !hasRect(y + 1)) {
+            MESH[y + 1] = MESH[y];
+            MESH[y] = new int[MESH[y].length];
+            for (Rectangle rect : rects[y]) {
                 if (rect != null) {
-                    rect.setY(rect.getY() + len * Tetris.SIZE);
+                    rect.setY(rect.getY() + Tetris.SIZE);
                 }
             }
-            rects[line + len] = rects[line];
-            rects[line] = new Rectangle[Tetris.XMAX];
+            rects[y + 1] = rects[y];
+            rects[y] = new Rectangle[Tetris.XMAX];
+            y++;
         }
     }
 

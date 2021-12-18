@@ -8,7 +8,9 @@ import javafx.scene.paint.Color;
  * 存储各种方块的颜色
  */
 public class TetrisColor {
-    public static double Opacity = 0.5;
+    public static double Opacity = 0.8;
+    public static Color GRID = Color.GRAY;
+    public static Color BACKGROUND = new Color(0.2, 0.2, 0.2, 0.8);
     public static Color T = Color.BLUEVIOLET;
     public static Color Z = Color.INDIANRED;
     public static Color S = Color.LIGHTGREEN;

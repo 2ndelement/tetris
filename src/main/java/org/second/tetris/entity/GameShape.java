@@ -1,5 +1,6 @@
 package org.second.tetris.entity;
 
+import javafx.scene.effect.Glow;
 import javafx.scene.effect.Lighting;
 import javafx.scene.shape.Rectangle;
 import org.second.tetris.Tetris;
@@ -217,6 +218,7 @@ public class GameShape implements Iterable<Rectangle> {
         GameShape prewShape = new GameShape(shape.clone(), mesh);
         for (Rectangle rect : prewShape) {
             rect.setOpacity(TetrisColor.Opacity);
+            rect.setEffect(new Glow(10));
         }
         while (prewShape.moveDown()) ;
         return prewShape;
