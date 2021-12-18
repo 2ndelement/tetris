@@ -9,19 +9,62 @@ import org.second.tetris.utils.TetrisColor;
  * @version 1.0
  */
 public class IShape extends Tetromino {
+    private int status = 0;
+
     public IShape() {
-        cells[0] = new Cell(3, 0, TetrisColor.I);
-        cells[1] = new Cell(4, 0, TetrisColor.I);
-        cells[2] = new Cell(5, 0, TetrisColor.I);
-        cells[3] = new Cell(6, 0, TetrisColor.I);
+        cells[0] = new Cell(3, 1, TetrisColor.I);
+        cells[1] = new Cell(4, 1, TetrisColor.I);
+        cells[2] = new Cell(5, 1, TetrisColor.I);
+        cells[3] = new Cell(6, 1, TetrisColor.I);
     }
 
     @Override
     //Todo:IShape的spin()待测试
-    public void spin() {
-        Cell center = cells[2];
+    public void rSpin() {
+        Cell center = cells[1];
         for (Cell cell : cells) {
-            cell.spin(center);
+            cell.rSpin(center);
+        }
+        switch (status) {
+            case 0:
+                moveRight();
+                status = 1;
+                break;
+            case 1:
+                moveDown();
+                status = 2;
+                break;
+            case 2:
+                moveLeft();
+                status = 3;
+                break;
+            case 3:
+                moveUp();
+                status = 0;
+        }
+    }
+
+    public void lSpin() {
+        Cell center = cells[1];
+        for (Cell cell : cells) {
+            cell.lSpin(center);
+        }
+        switch (status) {
+            case 0:
+                moveDown();
+                status = 4;
+                break;
+            case 1:
+                moveLeft();
+                status = 1;
+                break;
+            case 2:
+                moveUp();
+                status = 1;
+                break;
+            case 3:
+                moveRight();
+                status = 2;
         }
     }
 }

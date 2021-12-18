@@ -16,7 +16,11 @@ public class OShape extends Tetromino {
         cells[3] = new Cell(5, 0, TetrisColor.O);
     }
 
-    public void spin() {
-        //该形状无需旋转
+    public void rSpin() {
+        //该形状不旋转
+    }
+
+    public void lSpin() {
+        //该形状不旋转
     }
 }

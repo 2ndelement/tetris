@@ -17,11 +17,18 @@ public class SShape extends Tetromino {
     }
 
     @Override
-    //Todo:待测试
-    public void spin() {
-        Cell center = cells[2];
+    public void rSpin() {
+        Cell center = cells[1];
         for (Cell cell : cells) {
-            cell.spin(center);
+            cell.rSpin(center);
+        }
+    }
+
+    @Override
+    public void lSpin() {
+        Cell center = cells[1];
+        for (Cell cell : cells) {
+            cell.lSpin(center);
         }
     }
 }
