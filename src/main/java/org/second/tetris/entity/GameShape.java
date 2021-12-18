@@ -39,7 +39,7 @@ public class GameShape implements Iterable<Rectangle> {
             {new Cell(0, 0), new Cell(1, 0), new Cell(1, +1), new Cell(0, -2), new Cell(1, -2)}
     };
     private int[][] mesh;
-    private static int status = 0;
+    public static int status = 0;
 
     public Tetromino getShape() {
         return shape;
@@ -219,6 +219,7 @@ public class GameShape implements Iterable<Rectangle> {
         for (Rectangle rect : prewShape) {
             rect.setOpacity(TetrisColor.Opacity);
             rect.setEffect(new Glow(10));
+            rect.setFill(TetrisColor.PREWIEW);
         }
         while (prewShape.moveDown()) ;
         return prewShape;
@@ -241,7 +242,7 @@ public class GameShape implements Iterable<Rectangle> {
             int x = cell.getX();
             int y = cell.getY();
             rects[i].setX(Tetris.LEFT + x * Tetris.SIZE);
-            rects[i++].setY(y * Tetris.SIZE);
+            rects[i++].setY(Tetris.TOP + y * Tetris.SIZE);
         }
     }
 
@@ -255,7 +256,7 @@ public class GameShape implements Iterable<Rectangle> {
         this.mesh = mesh;
         int i = 0;
         for (Cell cell : shape) {
-            rects[i] = new Rectangle(Tetris.LEFT + cell.getX() * Tetris.SIZE, cell.getY() * Tetris.SIZE, Tetris.SIZE - 1, Tetris.SIZE - 1);
+            rects[i] = new Rectangle(Tetris.LEFT + cell.getX() * Tetris.SIZE, Tetris.TOP + cell.getY() * Tetris.SIZE, Tetris.SIZE - 1, Tetris.SIZE - 1);
             rects[i].setEffect(new Lighting());
             rects[i++].setFill(shape.getColor());
         }

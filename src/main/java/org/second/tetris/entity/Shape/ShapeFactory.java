@@ -13,6 +13,7 @@ public class ShapeFactory {
     private static int remainNum = BAG_SIZE;//记录未调取的形状数
     private static final Random codeGenerator = new Random();
     private static final boolean[] codeTable = new boolean[BAG_SIZE];//形状调取状态记录表
+    private static final Tetromino[] instances = {new IShape(), new OShape(), new LShape(), new JShape(), new ZShape(), new SShape(), new TShape()};
 
     /**
      * 根据Tetris标准包规则生成形状
@@ -64,6 +65,28 @@ public class ShapeFactory {
                 return new SShape();
             case 6:
                 return new TShape();
+        }
+        return null;
+    }
+
+    public static Tetromino makeNewOne(Tetromino old) {
+        String[] names = old.getClass().getName().split("\\.");
+        String className = names[names.length - 1];
+        switch (className) {
+            case "IShape":
+                return instances[0];
+            case "OShape":
+                return instances[1];
+            case "LShape":
+                return instances[2];
+            case "JShape":
+                return instances[3];
+            case "ZShape":
+                return instances[4];
+            case "SShape":
+                return instances[5];
+            case "TShape":
+                return instances[6];
         }
         return null;
     }

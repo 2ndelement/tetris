@@ -26,6 +26,7 @@ public class HelloController {
      * 单人模式按钮 还需要改单机后效果
      */
     @FXML
+
     protected void onSinglePlayerModeClick() throws Exception {
         homePage.setText("进入单机模式");
         HelloApplication.close();//调出单机模式界面关闭主界面。
@@ -52,5 +53,4 @@ public class HelloController {
     protected void onGameIntroductionClick() {
         homePage.setText("这个是游戏介绍");
     }
-
 }
