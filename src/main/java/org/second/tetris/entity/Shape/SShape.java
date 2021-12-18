@@ -10,10 +10,11 @@ import org.second.tetris.utils.TetrisColor;
  */
 public class SShape extends Tetromino {
     public SShape() {
-        cells[0] = new Cell(4, 1, TetrisColor.S);
-        cells[1] = new Cell(5, 1, TetrisColor.S);
-        cells[2] = new Cell(5, 0, TetrisColor.S);
-        cells[3] = new Cell(6, 0, TetrisColor.S);
+        cells[0] = new Cell(4, 1);
+        cells[1] = new Cell(5, 1);
+        cells[2] = new Cell(5, 0);
+        cells[3] = new Cell(6, 0);
+        color = TetrisColor.S;
     }
 
     @Override

@@ -10,10 +10,11 @@ import org.second.tetris.utils.TetrisColor;
  */
 public class ZShape extends Tetromino {
     public ZShape() {
-        cells[0] = new Cell(4, 0, TetrisColor.Z);
-        cells[1] = new Cell(5, 0, TetrisColor.Z);
-        cells[2] = new Cell(5, 1, TetrisColor.Z);
-        cells[3] = new Cell(6, 1, TetrisColor.Z);
+        cells[0] = new Cell(4, 0);
+        cells[1] = new Cell(5, 0);
+        cells[2] = new Cell(5, 1);
+        cells[3] = new Cell(6, 1);
+        color = TetrisColor.Z;
     }
 
     @Override
