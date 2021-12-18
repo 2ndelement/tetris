@@ -34,6 +34,7 @@ public class HelloController {
     protected void onSinglePlayerModeClick() throws Exception {
         homePage.setText("进入单机模式");
         HelloApplication.close();//调出单机模式界面关闭主界面。
+
         Tetris test = new Tetris();
         Stage stage = new Stage();
         test.start(stage);
