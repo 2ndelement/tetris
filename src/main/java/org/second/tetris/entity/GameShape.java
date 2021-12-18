@@ -219,6 +219,7 @@ public class GameShape implements Iterable<Rectangle> {
         for (Rectangle rect : prewShape) {
             rect.setOpacity(TetrisColor.Opacity);
             rect.setEffect(new Glow(10));
+            rect.setFill(TetrisColor.PREWIEW);
         }
         while (prewShape.moveDown()) ;
         return prewShape;

@@ -14,6 +14,7 @@ import org.second.tetris.entity.AchoredRectanglesManager;
 import org.second.tetris.entity.GameShape;
 import org.second.tetris.entity.Shape.Cell;
 import org.second.tetris.entity.Shape.ShapeFactory;
+import org.second.tetris.entity.Shape.Tetromino;
 import org.second.tetris.utils.TetrisColor;
 
 import java.net.URL;
@@ -37,6 +38,7 @@ public class Tetris extends Application {
     public static boolean isOver = false;
     private static AchoredRectanglesManager manager = new AchoredRectanglesManager(game, MESH);
     private static MediaPlayer mediaPlayer;
+    private static Tetromino holdShape = null;
 
     @Override
     public void start(Stage stage) throws Exception {
@@ -115,10 +117,14 @@ public class Tetris extends Application {
                     while (currentShape.moveDown()) ;
                     MoveDown();
                     break;
-                case F:
+                case C:
+                    HoldCurrent();
             }
 
         });
+    }
+
+    private void HoldCurrent() {
     }
 
     private void LSpin() {
