@@ -92,3 +92,4 @@ public abstract class Tetromino implements Cloneable, Iterable<Cell> {
         return color;
     }
 }
+
