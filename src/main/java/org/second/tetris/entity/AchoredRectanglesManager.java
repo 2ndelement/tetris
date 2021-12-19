@@ -4,7 +4,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.shape.Rectangle;
 import org.second.tetris.Tetris;
 import org.second.tetris.entity.Shape.Cell;
-import org.second.tetris.entity.Shape.Tetromino;
+import org.second.tetris.entity.Shape.TShape;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -22,9 +22,9 @@ public class AchoredRectanglesManager {
     private final int[][] MESH;
     private final Set<Integer> erasedLines = new HashSet<>();
 
-    public Score anchorShape(GameShape shape, boolean spinT) {
+    public Score anchorShape(GameShape shape) {
         addRectangles(shape);
-        return computeScore(shape, spinT);
+        return computeScore(shape);
     }
 
     /**
@@ -46,7 +46,7 @@ public class AchoredRectanglesManager {
      * @param shape 待锚定游戏形状
      * @return 得分
      */
-    private Score computeScore(GameShape shape, boolean spinT) {
+    private Score computeScore(GameShape shape) {
         Score score;
         Set<Integer> mayEraseLines = new HashSet<>();
         for (Cell cell : shape.getShape()) {
@@ -58,25 +58,22 @@ public class AchoredRectanglesManager {
                 erasedLines.add(y);
             }
         }
+        score = new Score(erasedLines.size(), isTSpin(shape));
         if (erasedLines.size() != 0) {
-            int beginLine = Collections.max(erasedLines) + 1;
-            if (spinT) {
-                score = new Score(erasedLines.size(), isTSpin(shape.getShape()));
-            } else {
-                score = new Score(erasedLines.size());
-            }
-            dropLines(beginLine);
-            erasedLines.clear();
-        } else {
-            score = new Score(0, isTSpin(shape.getShape()));
+            dropLines(Collections.max(erasedLines) + 1);
         }
+        erasedLines.clear();
+        System.out.println(score);
         return score;
     }
 
-    private boolean isTSpin(Tetromino shape) {
+    private boolean isTSpin(GameShape shape) {
+        if (!(shape.getShape() instanceof TShape) || !shape.lastSpin) {
+            return false;
+        }
         int count = 0;
-        Cell cell = shape.getCell(1);
-        Cell[] cells = {new Cell(cell.getX() - 1, cell.getX() - 1), new Cell(cell.getX() + 1, cell.getY() + 1),
+        Cell cell = shape.getShape().getCell(1);
+        Cell[] cells = {new Cell(cell.getX() - 1, cell.getY() - 1), new Cell(cell.getX() + 1, cell.getY() + 1),
                 new Cell(cell.getX() - 1, cell.getY() + 1), new Cell(cell.getX() + 1, cell.getY() - 1)};
         for (Cell check : cells) {
             if (check.getX() < 0 || check.getX() >= Tetris.XMAX || check.getY() >= Tetris.YMAX || MESH[check.getY()][check.getX()] == 1) {
