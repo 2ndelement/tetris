@@ -69,7 +69,7 @@ public class Scoreboard extends Application {
 
         try{
             //"C:\\AppData\\user.txt"为用户信息文档，主界面时生成，用户每添加一次记录，在文件中添加记录信息。读取信息
-            BufferedReader reader = new BufferedReader(new FileReader("src\\user.txt"));
+            BufferedReader reader = new BufferedReader(new FileReader("user.txt"));
             String user = reader.readLine();
             String record = reader.readLine();
             while(record!=null) {
@@ -141,4 +141,5 @@ public class Scoreboard extends Application {
         }
 
     }
+
 }  

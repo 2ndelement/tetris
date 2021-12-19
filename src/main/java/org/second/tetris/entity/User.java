@@ -19,15 +19,16 @@ import java.util.Iterator;
 public class User implements Iterable<ScoreRecord> {
     private String name;
     private final ArrayList<ScoreRecord> records = new ArrayList<>();
-
+    private BufferedWriter writer = new BufferedWriter(new FileWriter("user.txt",true));
     public void addRecord(int score) throws IOException {
         /**
          * 在链表中添加的同时在文件中添加信息。
          */
         ScoreRecord scoreRecord = new ScoreRecord(score);
         records.add(scoreRecord);
-        BufferedWriter writer = new BufferedWriter(new FileWriter("src\\user.txt"));
-        writer.write(scoreRecord.toString());
+        writer.write(scoreRecord.toString()+"\n");
+        writer.flush();
+        writer.close();
 
     }
 
@@ -61,14 +62,14 @@ public class User implements Iterable<ScoreRecord> {
      *
      * @param name 用户名
      */
-    public User(String name) {
+    public User(String name) throws IOException {
         this.name = name;
     }
 
     /**
      * 随机用户名创建用户
      */
-    public User() {
+    public User() throws IOException {
         this.name = UserUtils.generateName();
     }
 }
