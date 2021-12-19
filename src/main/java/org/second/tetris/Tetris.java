@@ -51,6 +51,7 @@ public class Tetris extends Application {
     private static TimerTask fall = null;
     private static int holdCount = 0;
     private static long speed = 1000;
+    private Stage stage;
 
     private void drawBackgroud() {
         score = new GameScorePane(LEFT + XMAX, TOP + YMAX * SIZE + SIZE, SIZE, 0);
@@ -86,6 +87,7 @@ public class Tetris extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
+        this.stage = stage;
         Random random = new Random();
         URL music = Tetris.class.getResource(random.nextInt(3) + 1 + ".mp3");
         Media media = new Media(String.valueOf(music));
@@ -112,7 +114,7 @@ public class Tetris extends Application {
                     Platform.runLater(
                             () -> {
                                 if (isOver) {
-                                    System.exit(1);
+                                    exit();
                                 }
                                 MoveDown();
                             }
@@ -121,6 +123,11 @@ public class Tetris extends Application {
             };
         }
         timer.schedule(fall, 0, score.speed());
+    }
+
+    //Todo:complete
+    private void exit() {
+
     }
 
     private void stopFall() {
@@ -200,6 +207,16 @@ public class Tetris extends Application {
                     } else {
                         stopFall();
                         isPause = true;
+                    }
+                    break;
+                case ESCAPE:
+                    exit();
+                    break;
+                case M:
+                    if (mediaPlayer.isMute()) {
+                        mediaPlayer.setMute(false);
+                    } else {
+                        mediaPlayer.setMute(true);
                     }
             }
 
