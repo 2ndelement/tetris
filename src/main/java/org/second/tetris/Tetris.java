@@ -133,7 +133,6 @@ public class Tetris extends Application {
         timer.schedule(fall, 0, score.speed());
     }
 
-    //Todo:complete
     private void exit() {
         System.exit(0);
     }
