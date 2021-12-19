@@ -4,11 +4,16 @@ import javafx.application.Application;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.io.BufferedReader;
@@ -23,9 +28,14 @@ import java.util.StringTokenizer;
  */
 public class Scoreboard extends Application {
 
+    public static final int width = 1300;
+    public static final int height = 660;
+    private Button button = new Button();
+
     private TableView<scorecord> table = new TableView<scorecord>();
     private final ObservableList<scorecord> data =
             FXCollections.observableArrayList();
+    private static Stage pristage;
 
     public static void main(String[] args) {
         launch(args);
@@ -34,12 +44,32 @@ public class Scoreboard extends Application {
     @Override
     public void start(Stage stage) {
         Scene scene = new Scene(new Group());
+        VBox vbox = new VBox();
+        vbox.setSpacing(20);
+        vbox.setAlignment(Pos.CENTER);
         stage.setTitle("得分记录");
-        stage.setWidth(450);
-        stage.setHeight(500);
+        stage.setWidth(width);
+        stage.setHeight(height);
+        button.setText("返回主界面");
+        button.setOnAction(new EventHandler< ActionEvent >(){
+
+            @Override
+            public void handle(ActionEvent event) {
+                Scoreboard.close();//调出单机模式界面关闭主界面。
+
+                HelloApplication test = new HelloApplication();
+                Stage stage = new Stage();
+                try {
+                    test.start(stage);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
         try{
             //"C:\\AppData\\user.txt"为用户信息文档，主界面时生成，用户每添加一次记录，在文件中添加记录信息。读取信息
-            BufferedReader reader = new BufferedReader(new FileReader("C:\\AppData\\user.txt"));
+            BufferedReader reader = new BufferedReader(new FileReader("user.txt"));
             String user = reader.readLine();
             String record = reader.readLine();
             while(record!=null) {
@@ -54,24 +84,31 @@ public class Scoreboard extends Application {
         }
 
         TableColumn firstNameCol = new TableColumn("Score");
-        firstNameCol.setMinWidth(225);
+        firstNameCol.setMinWidth(width/2);
         firstNameCol.setCellValueFactory(
                 new PropertyValueFactory<scorecord, String>("firstName"));
 
         TableColumn lastNameCol = new TableColumn("Date");
-        lastNameCol.setMinWidth(225);
+        lastNameCol.setMinWidth(width/2);
         lastNameCol.setCellValueFactory(
                 new PropertyValueFactory<scorecord, String>("lastName"));
         if(data!=null){
             table.setItems(data);
         }
-
         table.getColumns().addAll(firstNameCol, lastNameCol);
+        vbox.getChildren().addAll(table,button);
 
-        ((Group) scene.getRoot()).getChildren().addAll(table);
+
+        ((Group) scene.getRoot()).getChildren().addAll(vbox);
 
         stage.setScene(scene);
+        stage.setResizable(false);//禁止用户修改窗口大小
         stage.show();
+        pristage = stage;
+    }
+
+    private static void close() {
+        pristage.close();
     }
 
     /**
@@ -104,4 +141,5 @@ public class Scoreboard extends Application {
         }
 
     }
+
 }  

@@ -8,6 +8,7 @@ import org.second.tetris.entity.User;
 import org.second.tetris.utils.UserUtils;
 
 import java.io.*;
+import java.util.StringTokenizer;
 
 /**
  * 主界面
@@ -17,35 +18,42 @@ import java.io.*;
  */
 public class HelloApplication extends Application {
     private static Stage pristage;
-    private User user;
+    private static User user;
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 450, 650);
+        Scene scene = new Scene(fxmlLoader.load(), 1300, 660);
         stage.setTitle("俄罗斯方块");
         stage.setScene(scene);
+        stage.setResizable(false);//禁止用户修改窗口大小
         stage.show();
         pristage = stage;
         //如果没有该用户即创建一个文件存储信息。
         try{
-            File newfile = new File("C:\\AppData\\user.txt");
+            File newfile = new File("user.txt");
             //查看该路径是否有该文件。
             if(!newfile.exists()){
                 newfile.createNewFile();
-                BufferedWriter writer = new BufferedWriter(new FileWriter(newfile));
+                BufferedWriter writer = new BufferedWriter(new FileWriter(newfile,true));
                 String string = UserUtils.generateName();
                 user = new User(string);
-                writer.write(string);
+
+                writer.write(string+"\n");
+
                 writer.flush();
                 writer.close();
+            }else{
+                BufferedReader reader = new BufferedReader(new FileReader("user.txt"));
+                String string = reader.readLine();
+                user = new User(string);
             }
         }catch(IOException e){
             e.printStackTrace();
         }
     }
 
-    public User getUser(){
-        return this.user;
+    public static User getUser(){
+        return user;
     }
     /**
      * 增加close方法使得界面可以关闭。

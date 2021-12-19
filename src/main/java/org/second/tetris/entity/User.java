@@ -2,6 +2,9 @@ package org.second.tetris.entity;
 
 import org.second.tetris.utils.UserUtils;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -16,9 +19,17 @@ import java.util.Iterator;
 public class User implements Iterable<ScoreRecord> {
     private String name;
     private final ArrayList<ScoreRecord> records = new ArrayList<>();
+    private BufferedWriter writer = new BufferedWriter(new FileWriter("user.txt",true));
+    public void addRecord(int score) throws IOException {
+        /**
+         * 在链表中添加的同时在文件中添加信息。
+         */
+        ScoreRecord scoreRecord = new ScoreRecord(score);
+        records.add(scoreRecord);
+        writer.write(scoreRecord.toString()+"\n");
+        writer.flush();
+        writer.close();
 
-    public void addRecord(int score) {
-        records.add(new ScoreRecord(score));
     }
 
     @Override
@@ -51,14 +62,14 @@ public class User implements Iterable<ScoreRecord> {
      *
      * @param name 用户名
      */
-    public User(String name) {
+    public User(String name) throws IOException {
         this.name = name;
     }
 
     /**
      * 随机用户名创建用户
      */
-    public User() {
+    public User() throws IOException {
         this.name = UserUtils.generateName();
     }
 }

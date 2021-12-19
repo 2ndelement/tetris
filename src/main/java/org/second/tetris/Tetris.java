@@ -22,6 +22,7 @@ import org.second.tetris.entity.Shape.Tetromino;
 import org.second.tetris.entity.ShapePane;
 import org.second.tetris.utils.TetrisColor;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.Arrays;
 import java.util.Random;
@@ -121,7 +122,13 @@ public class Tetris extends Application {
                     Platform.runLater(
                             () -> {
                                 if (isOver) {
+                                    try {
+                                        HelloApplication.getUser().addRecord(score.getScore());
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
+                                    }
                                     exit();
+
                                 } else {
                                     MoveDown();
                                 }

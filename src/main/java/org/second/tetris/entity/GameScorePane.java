@@ -81,4 +81,7 @@ public class GameScorePane extends Pane {
         scoreText.setText("Level:" + level + " Score:" + score);
     }
 
+    public int getScore() {
+        return score;
+    }
 }

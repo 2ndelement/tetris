@@ -30,7 +30,7 @@ public class ScoreRecord {
     public ScoreRecord(int score) {
         this.score = score;
         Date date = new Date();
-        SimpleDateFormat sbf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        SimpleDateFormat sbf = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
         this.time = sbf.format(date);
     }
 
