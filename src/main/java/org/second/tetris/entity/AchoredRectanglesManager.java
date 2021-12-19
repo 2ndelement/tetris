@@ -4,22 +4,34 @@ import javafx.scene.layout.Pane;
 import javafx.scene.shape.Rectangle;
 import org.second.tetris.Tetris;
 import org.second.tetris.entity.Shape.Cell;
+import org.second.tetris.entity.Shape.Tetromino;
 
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * 管理锚定的形状,进行锚定、消除和各类处理
+ *
+ * @author 吴晓鹏
+ * @version 1.0
+ */
 public class AchoredRectanglesManager {
-    private Rectangle[][] rects = new Rectangle[Tetris.YMAX][Tetris.XMAX];
-    private Pane game;
-    private int[][] MESH;
-    private Set<Integer> erasedLines = new HashSet<>();
+    private final Rectangle[][] rects = new Rectangle[Tetris.YMAX][Tetris.XMAX];
+    private final Pane game;
+    private final int[][] MESH;
+    private final Set<Integer> erasedLines = new HashSet<>();
 
-    public int anchorShape(GameShape shape) {
+    public Score anchorShape(GameShape shape, boolean spinT) {
         addRectangles(shape);
-        return computeScore(shape);
+        return computeScore(shape, spinT);
     }
 
+    /**
+     * 将游戏形状锚定
+     *
+     * @param shape 游戏形状
+     */
     private void addRectangles(GameShape shape) {
         int i = 0;
         for (Cell cell : shape.getShape()) {
@@ -28,8 +40,14 @@ public class AchoredRectanglesManager {
         }
     }
 
-    private int computeScore(GameShape shape) {
-        int score = 0;
+    /**
+     * 检测并完成消除,同时计算得分
+     *
+     * @param shape 待锚定游戏形状
+     * @return 得分
+     */
+    private Score computeScore(GameShape shape, boolean spinT) {
+        Score score;
         Set<Integer> mayEraseLines = new HashSet<>();
         for (Cell cell : shape.getShape()) {
             mayEraseLines.add(cell.getY());
@@ -42,27 +60,40 @@ public class AchoredRectanglesManager {
         }
         if (erasedLines.size() != 0) {
             int beginLine = Collections.max(erasedLines) + 1;
-            dropLines(beginLine);
-            switch (erasedLines.size()) {
-                case 1:
-                    score = 40;
-                    break;
-                case 2:
-                    score = 100;
-                    break;
-                case 3:
-                    score = 300;
-                    break;
-                case 4:
-                    score = 1200;
-                    break;
+            if (spinT) {
+                score = new Score(erasedLines.size(), isTSpin(shape.getShape()));
+            } else {
+                score = new Score(erasedLines.size());
             }
+            dropLines(beginLine);
             erasedLines.clear();
-            return score;
+        } else {
+            score = new Score(0, isTSpin(shape.getShape()));
         }
-        return 0;
+        return score;
     }
 
+    private boolean isTSpin(Tetromino shape) {
+        int count = 0;
+        Cell cell = shape.getCell(1);
+        Cell[] cells = {new Cell(cell.getX() - 1, cell.getX() - 1), new Cell(cell.getX() + 1, cell.getY() + 1),
+                new Cell(cell.getX() - 1, cell.getY() + 1), new Cell(cell.getX() + 1, cell.getY() - 1)};
+        for (Cell check : cells) {
+            if (check.getX() < 0 || check.getX() >= Tetris.XMAX || check.getY() >= Tetris.YMAX || MESH[check.getY()][check.getX()] == 1) {
+                count++;
+            }
+        }
+        if (count >= 3) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * 获取
+     *
+     * @return
+     */
     private int getTopLine() {
         for (int y = 0; y < rects.length; y++) {
             if (hasRect(y)) {

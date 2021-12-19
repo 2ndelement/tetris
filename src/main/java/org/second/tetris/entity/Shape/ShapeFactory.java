@@ -1,5 +1,6 @@
 package org.second.tetris.entity.Shape;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.Random;
 
 /**
@@ -18,7 +19,7 @@ public class ShapeFactory {
     /**
      * 根据Tetris标准包规则生成形状
      *
-     * @return 一个形状
+     * @return 一个形状单例
      */
     public static Tetromino nextShape() {
         //包内剩余形状数为0时,重置记录数组
@@ -42,7 +43,7 @@ public class ShapeFactory {
     }
 
     /**
-     * 根据传入代号创建一个形状;对应关系如下<br>
+     * 根据传入代号创建一个形状(形状为单例);对应关系如下<br>
      * 0-I; 1-O; 2-L; 3-J; 4-Z; 5-S; 6-T;
      *
      * @param code 目标形状块的代号
@@ -52,42 +53,29 @@ public class ShapeFactory {
     private static Tetromino createShape(int code) {
         switch (code) {
             case 0:
-                return new IShape();
+                return instances[0];
             case 1:
-                return new OShape();
+                return instances[1];
             case 2:
-                return new LShape();
+                return instances[2];
             case 3:
-                return new JShape();
+                return instances[3];
             case 4:
-                return new ZShape();
+                return instances[4];
             case 5:
-                return new SShape();
+                return instances[5];
             case 6:
-                return new TShape();
+                return instances[6];
         }
         return null;
     }
 
-    public static Tetromino makeNewOne(Tetromino old) {
-        String[] names = old.getClass().getName().split("\\.");
-        String className = names[names.length - 1];
-        switch (className) {
-            case "IShape":
-                return instances[0];
-            case "OShape":
-                return instances[1];
-            case "LShape":
-                return instances[2];
-            case "JShape":
-                return instances[3];
-            case "ZShape":
-                return instances[4];
-            case "SShape":
-                return instances[5];
-            case "TShape":
-                return instances[6];
+    public static Tetromino createNewInstance(Tetromino old) {
+        try {
+            return old.getClass().getDeclaredConstructor().newInstance();
+        } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
+            e.printStackTrace();
+            return null;
         }
-        return null;
     }
 }

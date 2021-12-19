@@ -17,10 +17,12 @@ public class OShape extends Tetromino {
         color = TetrisColor.O;
     }
 
+    @Override
     public void rSpin() {
         //该形状不旋转
     }
 
+    @Override
     public void lSpin() {
         //该形状不旋转
     }

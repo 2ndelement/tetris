@@ -12,9 +12,11 @@ import javafx.scene.media.MediaPlayer;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import org.second.tetris.entity.AchoredRectanglesManager;
+import org.second.tetris.entity.GameScorePane;
 import org.second.tetris.entity.GameShape;
 import org.second.tetris.entity.Shape.Cell;
 import org.second.tetris.entity.Shape.ShapeFactory;
+import org.second.tetris.entity.Shape.TShape;
 import org.second.tetris.entity.Shape.Tetromino;
 import org.second.tetris.entity.ShapePane;
 import org.second.tetris.utils.TetrisColor;
@@ -33,24 +35,27 @@ public class Tetris extends Application {
     public static int SIZE = 30;
     public static int XMAX = 10;
     public static int YMAX = 20;
-    public static int hold = 1;
     private static boolean isPause = false;
-    private static Pane game = new Pane();
-    private static Scene scene = new Scene(game, XMAX * SIZE + LEFT + RIGHT, TOP + YMAX * SIZE + BOTTOM);
+    private static final Pane game = new Pane();
+    private static final Scene scene = new Scene(game, XMAX * SIZE + LEFT + RIGHT, TOP + YMAX * SIZE + BOTTOM);
     private static GameShape currentShape;
     private static GameShape previewShape;
-    private static int[][] MESH = new int[YMAX][XMAX];
-    public static int score = 0;
+    private static final int[][] MESH = new int[YMAX][XMAX];
+    public static GameScorePane score;
     public static boolean isOver = false;
-    private static AchoredRectanglesManager manager = new AchoredRectanglesManager(game, MESH);
+    private static final AchoredRectanglesManager manager = new AchoredRectanglesManager(game, MESH);
     private static MediaPlayer mediaPlayer;
     private static ShapePane holdPane = null;
-    private static ShapePane[] nextPanes = new ShapePane[5];
-    private static Timer timer = new Timer();
+    private static final ShapePane[] nextPanes = new ShapePane[5];
+    private static final Timer timer = new Timer();
     private static TimerTask fall = null;
     private static int holdCount = 0;
+    private static long speed = 1000;
+    private Stage stage;
 
     private void drawBackgroud() {
+        score = new GameScorePane(LEFT + XMAX, TOP + YMAX * SIZE + SIZE, SIZE, 0);
+        game.getChildren().add(score);
         nextPanes[0] = new ShapePane(LEFT + XMAX * SIZE + 10, TOP, SIZE / 2, 0);
         nextPanes[1] = new ShapePane(LEFT + XMAX * SIZE + 10, TOP + 6 * SIZE / 2, SIZE / 2, 0);
         nextPanes[2] = new ShapePane(LEFT + XMAX * SIZE + 10, TOP + 12 * SIZE / 2, SIZE / 2, 0);
@@ -82,6 +87,7 @@ public class Tetris extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
+        this.stage = stage;
         Random random = new Random();
         URL music = Tetris.class.getResource(random.nextInt(3) + 1 + ".mp3");
         Media media = new Media(String.valueOf(music));
@@ -109,7 +115,7 @@ public class Tetris extends Application {
                     Platform.runLater(
                             () -> {
                                 if (isOver) {
-                                    System.exit(1);
+                                    exit();
                                 }
                                 MoveDown();
                             }
@@ -117,7 +123,12 @@ public class Tetris extends Application {
                 }
             };
         }
-        timer.schedule(fall, 0, 1000);
+        timer.schedule(fall, 0, score.speed());
+    }
+
+    //Todo:complete
+    private void exit() {
+
     }
 
     private void stopFall() {
@@ -142,9 +153,18 @@ public class Tetris extends Application {
             isPause = false;
         }
         if (!currentShape.moveDown()) {
-            score += manager.anchorShape(currentShape);
+            boolean isTSpin = currentShape.getShape() instanceof TShape && currentShape.lastSpin;
+            score.add(manager.anchorShape(currentShape, isTSpin));
             holdCount = 0;
             addNewShape();
+            flushFall();
+        }
+    }
+
+    private void flushFall() {
+        if (speed != score.speed()) {
+            stopFall();
+            startFall();
         }
     }
 
@@ -188,6 +208,16 @@ public class Tetris extends Application {
                     } else {
                         stopFall();
                         isPause = true;
+                    }
+                    break;
+                case ESCAPE:
+                    exit();
+                    break;
+                case M:
+                    if (mediaPlayer.isMute()) {
+                        mediaPlayer.setMute(false);
+                    } else {
+                        mediaPlayer.setMute(true);
                     }
             }
 

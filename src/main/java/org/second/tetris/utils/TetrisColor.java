@@ -9,14 +9,14 @@ import javafx.scene.paint.Color;
  */
 public class TetrisColor {
     public static final Color PREWIEW = Color.GRAY;
-    public static double Opacity = 0.5;
-    public static Color GRID = Color.GRAY;
-    public static Color BACKGROUND = new Color(0.2, 0.2, 0.2, 0.8);
-    public static Color T = Color.BLUEVIOLET;
-    public static Color Z = Color.INDIANRED;
-    public static Color S = Color.LIGHTGREEN;
-    public static Color O = Color.YELLOW;
-    public static Color L = Color.ORANGE;
-    public static Color J = Color.BLUE;
-    public static Color I = Color.AQUA;
+    public static double Opacity = 0.3;
+    public static final Color GRID = Color.GRAY;
+    public static final Color BACKGROUND = new Color(0.2, 0.2, 0.2, 0.8);
+    public static final Color T = Color.BLUEVIOLET;
+    public static final Color Z = Color.INDIANRED;
+    public static final Color S = Color.LIGHTGREEN;
+    public static final Color O = Color.YELLOW;
+    public static final Color L = Color.ORANGE;
+    public static final Color J = Color.BLUE;
+    public static final Color I = Color.AQUA;
 }

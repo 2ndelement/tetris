@@ -14,8 +14,8 @@ public abstract class Tetromino implements Cloneable, Iterable<Cell> {
     protected Cell[] cells = new Cell[4];
     protected Color color;
 
-    public void setCells(Cell[] cells) {
-        this.cells = cells;
+    public Cell getCell(int index) {
+        return cells[index];
     }
 
     public void moveUp() {
@@ -53,15 +53,14 @@ public abstract class Tetromino implements Cloneable, Iterable<Cell> {
     }
 
     /**
-     * 旋转该块
+     * 逆时针旋转该块
      */
     public abstract void lSpin();
 
+    /**
+     * 顺时针旋转该块
+     */
     public abstract void rSpin();
-
-    public Cell getCell(int index) {
-        return cells[index];
-    }
 
     @Override
     public Iterator<Cell> iterator() {
@@ -80,7 +79,7 @@ public abstract class Tetromino implements Cloneable, Iterable<Cell> {
             for (int i = 0; i < 4; i++) {
                 newCells[i] = new Cell(cells[i].getX(), cells[i].getY());
             }
-            newTetromino.setCells(newCells);
+            newTetromino.cells = newCells;
             return newTetromino;
         } catch (CloneNotSupportedException e) {
             e.printStackTrace();
