@@ -29,7 +29,7 @@ public class HelloApplication extends Application {
         pristage = stage;
         //如果没有该用户即创建一个文件存储信息。
         try{
-            File newfile = new File("C:\\AppData\\user.txt");
+            File newfile = new File("src\\user.txt");
             //查看该路径是否有该文件。
             if(!newfile.exists()){
                 newfile.createNewFile();
