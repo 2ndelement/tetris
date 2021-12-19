@@ -2,6 +2,7 @@ package org.second.tetris;
 
 import javafx.application.Application;
 import javafx.application.Platform;
+import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Background;
@@ -11,12 +12,12 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import org.second.tetris.entity.AchoredRectanglesManager;
 import org.second.tetris.entity.GameScorePane;
 import org.second.tetris.entity.GameShape;
 import org.second.tetris.entity.Shape.Cell;
 import org.second.tetris.entity.Shape.ShapeFactory;
-import org.second.tetris.entity.Shape.TShape;
 import org.second.tetris.entity.Shape.Tetromino;
 import org.second.tetris.entity.ShapePane;
 import org.second.tetris.utils.TetrisColor;
@@ -101,6 +102,12 @@ public class Tetris extends Application {
         for (int[] line : MESH) {
             Arrays.fill(line, 0);
         }
+        stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+            @Override
+            public void handle(WindowEvent event) {
+                System.exit(0);
+            }
+        });
         addNewShape();
         moveOnKeyPress();
         startFall();
@@ -116,8 +123,9 @@ public class Tetris extends Application {
                             () -> {
                                 if (isOver) {
                                     exit();
+                                } else {
+                                    MoveDown();
                                 }
-                                MoveDown();
                             }
                     );
                 }
@@ -126,9 +134,8 @@ public class Tetris extends Application {
         timer.schedule(fall, 0, score.speed());
     }
 
-    //Todo:complete
     private void exit() {
-
+        System.exit(0);
     }
 
     private void stopFall() {
@@ -153,8 +160,7 @@ public class Tetris extends Application {
             isPause = false;
         }
         if (!currentShape.moveDown()) {
-            boolean isTSpin = currentShape.getShape() instanceof TShape && currentShape.lastSpin;
-            score.add(manager.anchorShape(currentShape, isTSpin));
+            score.add(manager.anchorShape(currentShape));
             holdCount = 0;
             addNewShape();
             flushFall();

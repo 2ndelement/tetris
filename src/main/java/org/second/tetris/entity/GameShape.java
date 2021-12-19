@@ -181,7 +181,7 @@ public class GameShape implements Iterable<Rectangle> {
         } else {
             kickTable = otherTable;
         }
-        switch (status) {
+        switch (direction) {
             case R:
                 switch (status) {
                     case 0:
