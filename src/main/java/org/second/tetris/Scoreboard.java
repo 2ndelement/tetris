@@ -23,6 +23,9 @@ import java.util.StringTokenizer;
  */
 public class Scoreboard extends Application {
 
+    public static final int width = 1300;
+    public static final int height = 660;
+
     private TableView<scorecord> table = new TableView<scorecord>();
     private final ObservableList<scorecord> data =
             FXCollections.observableArrayList();
@@ -35,8 +38,8 @@ public class Scoreboard extends Application {
     public void start(Stage stage) {
         Scene scene = new Scene(new Group());
         stage.setTitle("得分记录");
-        stage.setWidth(450);
-        stage.setHeight(500);
+        stage.setWidth(width);
+        stage.setHeight(height);
         try{
             //"C:\\AppData\\user.txt"为用户信息文档，主界面时生成，用户每添加一次记录，在文件中添加记录信息。读取信息
             BufferedReader reader = new BufferedReader(new FileReader("C:\\AppData\\user.txt"));
@@ -54,12 +57,12 @@ public class Scoreboard extends Application {
         }
 
         TableColumn firstNameCol = new TableColumn("Score");
-        firstNameCol.setMinWidth(225);
+        firstNameCol.setMinWidth(width/2);
         firstNameCol.setCellValueFactory(
                 new PropertyValueFactory<scorecord, String>("firstName"));
 
         TableColumn lastNameCol = new TableColumn("Date");
-        lastNameCol.setMinWidth(225);
+        lastNameCol.setMinWidth(width/2);
         lastNameCol.setCellValueFactory(
                 new PropertyValueFactory<scorecord, String>("lastName"));
         if(data!=null){
@@ -71,6 +74,7 @@ public class Scoreboard extends Application {
         ((Group) scene.getRoot()).getChildren().addAll(table);
 
         stage.setScene(scene);
+        stage.setResizable(false);//禁止用户修改窗口大小
         stage.show();
     }
 

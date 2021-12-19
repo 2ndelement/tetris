@@ -21,9 +21,10 @@ public class HelloApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 450, 650);
+        Scene scene = new Scene(fxmlLoader.load(), 1300, 660);
         stage.setTitle("俄罗斯方块");
         stage.setScene(scene);
+        stage.setResizable(false);//禁止用户修改窗口大小
         stage.show();
         pristage = stage;
         //如果没有该用户即创建一个文件存储信息。

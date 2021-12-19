@@ -90,6 +90,7 @@ public class Tetris extends Application {
         drawBackgroud();
         stage.setScene(scene);
         stage.setTitle("TETRIS");
+        stage.setResizable(false);//禁止用户修改窗口大小
         stage.show();
         for (int[] line : MESH) {
             Arrays.fill(line, 0);
