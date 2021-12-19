@@ -20,7 +20,6 @@ public class IShape extends Tetromino {
     }
 
     @Override
-    //Todo:IShape的spin()待测试
     public void rSpin() {
         Cell center = cells[1];
         for (Cell cell : cells) {
@@ -45,6 +44,7 @@ public class IShape extends Tetromino {
         }
     }
 
+    @Override
     public void lSpin() {
         Cell center = cells[1];
         for (Cell cell : cells) {

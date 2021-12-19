@@ -13,11 +13,27 @@ import org.second.tetris.utils.TetrisColor;
 import java.util.Arrays;
 import java.util.Iterator;
 
+/**
+ * 游戏内形状类，用于在游戏内显示以及处理形状
+ *
+ * @author 吴晓鹏
+ * @version 1.0
+ */
 public class GameShape implements Iterable<Rectangle> {
-    private Tetromino shape;
-    private Rectangle[] rects = new Rectangle[4];
-    private static final int R = 0;
-    private static final int L = 1;
+    /**
+     * 内部形状,存储逻辑位置
+     **/
+    private final Tetromino shape;
+    /**
+     * 形状显示单元
+     */
+    private final Rectangle[] rects = new Rectangle[4];
+    private static final int R = 0;//右旋代码
+    private static final int L = 1;//左旋代码
+    public boolean lastSpin = false;
+    /**
+     * {@link IShape}的踢墙判断表,存储判断方案和偏移量
+     */
     private static final Cell[][] ITabel = {
             {new Cell(0, 0), new Cell(-2, 0), new Cell(1, 0), new Cell(-2, -1), new Cell(1, 2)},
             {new Cell(0, 0), new Cell(2, 0), new Cell(-1, 0), new Cell(2, 1), new Cell(-1, -2)},
@@ -28,6 +44,9 @@ public class GameShape implements Iterable<Rectangle> {
             {new Cell(0, 0), new Cell(1, 0), new Cell(-2, 0), new Cell(1, -2), new Cell(-2, 1)},
             {new Cell(0, 0), new Cell(-1, 0), new Cell(2, 0), new Cell(-1, 2), new Cell(2, -1)}
     };
+    /**
+     * T,J,L,Z,S的踢墙判断表,存储判断方案和偏移量
+     */
     private static final Cell[][] otherTable = {
             {new Cell(0, 0), new Cell(-1, 0), new Cell(-1, +1), new Cell(0, -2), new Cell(-1, -2)},
             {new Cell(0, 0), new Cell(1, 0), new Cell(1, -1), new Cell(0, 2), new Cell(1, 2)},
@@ -39,19 +58,36 @@ public class GameShape implements Iterable<Rectangle> {
             {new Cell(0, 0), new Cell(1, 0), new Cell(1, +1), new Cell(0, -2), new Cell(1, -2)}
     };
     private int[][] mesh;
-    public static int status = 0;
+    public int status = 0;
 
+    /**
+     * 获取内部逻辑形状
+     *
+     * @return
+     */
     public Tetromino getShape() {
         return shape;
     }
 
+    /**
+     * 获取指定索引的内部显示网格单元
+     *
+     * @param index 索引 0-3
+     * @return 矩形单元
+     */
     public Rectangle getRect(int index) {
         return rects[index];
     }
 
+    /**
+     * 下移形状
+     *
+     * @return if 成功 {@code true} else {@code false}}
+     */
     public boolean moveDown() {
         shape.moveDown();
         if (isLegal()) {
+            lastSpin = false;
             reDrawShape();
             return true;
         } else {
@@ -60,9 +96,15 @@ public class GameShape implements Iterable<Rectangle> {
         }
     }
 
+    /**
+     * 左移形状
+     *
+     * @return if 成功 {@code true} else {@code false}}
+     */
     public boolean moveLeft() {
         shape.moveLeft();
         if (isLegal()) {
+            lastSpin = false;
             reDrawShape();
             return true;
         } else {
@@ -71,9 +113,15 @@ public class GameShape implements Iterable<Rectangle> {
         }
     }
 
+    /**
+     * 右移形状
+     *
+     * @return if 成功 {@code true} else {@code false}}
+     */
     public boolean moveRight() {
         shape.moveRight();
         if (isLegal()) {
+            lastSpin = false;
             reDrawShape();
             return true;
         } else {
@@ -82,6 +130,11 @@ public class GameShape implements Iterable<Rectangle> {
         }
     }
 
+    /**
+     * 左旋转(逆时针)
+     *
+     * @return if 成功 {@code true} else {@code false}}
+     */
     public boolean lSpin() {
         if (shape instanceof OShape) {
             return false;
@@ -92,9 +145,15 @@ public class GameShape implements Iterable<Rectangle> {
             return false;
         }
         reDrawShape();
+        lastSpin = true;
         return true;
     }
 
+    /**
+     * 右旋转(顺时针)
+     *
+     * @return if 成功 {@code true} else {@code false}}
+     */
     public boolean rSpin() {
         if (shape instanceof OShape) {
             return false;
@@ -104,10 +163,17 @@ public class GameShape implements Iterable<Rectangle> {
             shape.lSpin();
             return false;
         }
+        lastSpin = true;
         reDrawShape();
         return true;
     }
 
+    /**
+     * 处理踢墙
+     *
+     * @param direction 旋转方向
+     * @return if 有合适旋转方案 {@code true} else {@code false}}
+     */
     private boolean KickWallHandle(int direction) {
         Cell[][] kickTable = null;
         if (shape instanceof IShape) {
@@ -150,6 +216,10 @@ public class GameShape implements Iterable<Rectangle> {
         return false;
     }
 
+    /**
+     * @param table 偏移方案
+     * @return if 偏移方案有合适方案 {@code true} else {@code false}}
+     */
     private boolean tryTable(Cell[] table) {
         for (Cell cell : table) {
             move(cell);
@@ -162,6 +232,11 @@ public class GameShape implements Iterable<Rectangle> {
         return false;
     }
 
+    /**
+     * 偏移
+     *
+     * @param cell 偏移量
+     */
     private void move(Cell cell) {
         int x = cell.getX();
         int y = cell.getY();
@@ -188,6 +263,11 @@ public class GameShape implements Iterable<Rectangle> {
 
     }
 
+    /**
+     * 反向偏移
+     *
+     * @param cell 偏移量
+     */
     private void deMove(Cell cell) {
         int x = cell.getX();
         int y = cell.getY();
@@ -214,6 +294,11 @@ public class GameShape implements Iterable<Rectangle> {
 
     }
 
+    /**
+     * 创建当前游戏形状的一个预览游戏形状
+     *
+     * @return 预览游戏形状
+     */
     public GameShape createPrew() {
         GameShape prewShape = new GameShape(shape.clone(), mesh);
         for (Rectangle rect : prewShape) {
@@ -225,6 +310,11 @@ public class GameShape implements Iterable<Rectangle> {
         return prewShape;
     }
 
+    /**
+     * 判断当前状态是否合法,即有无与已锚定块重合和卡墙
+     *
+     * @return if 合法 {@code true} else {@code false}；
+     */
     private boolean isLegal() {
         for (Cell cell : shape) {
             int x = cell.getX();
@@ -236,6 +326,9 @@ public class GameShape implements Iterable<Rectangle> {
         return true;
     }
 
+    /**
+     * 重绘形状,将逻辑位置显示
+     */
     private void reDrawShape() {
         int i = 0;
         for (Cell cell : shape) {
