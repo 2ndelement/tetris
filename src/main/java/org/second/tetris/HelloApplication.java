@@ -10,6 +10,7 @@ import org.second.tetris.entity.User;
 import org.second.tetris.utils.UserUtils;
 
 import java.io.*;
+import java.util.StringTokenizer;
 
 /**
  * 主界面
@@ -20,7 +21,6 @@ import java.io.*;
 public class HelloApplication extends Application {
     private static Stage pristage;
     private static User user;
-
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
@@ -37,7 +37,8 @@ public class HelloApplication extends Application {
             }
         });
         //如果没有该用户即创建一个文件存储信息。
-        try {
+
+        try{
             File newfile = new File("user.txt");
             //查看该路径是否有该文件。
             if (!newfile.exists()) {
@@ -60,7 +61,7 @@ public class HelloApplication extends Application {
         }
     }
 
-    public static User getUser() {
+    public static User getUser(){
         return user;
     }
 
