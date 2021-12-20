@@ -54,11 +54,13 @@ public class AchoredRectanglesManager {
         }
         for (int y : mayEraseLines) {
             if (isLineFull(y)) {
-                eraseLine(y);
                 erasedLines.add(y);
             }
         }
         score = new Score(erasedLines.size(), isTSpin(shape));
+        for (int line : erasedLines) {
+            eraseLine(line);
+        }
         if (erasedLines.size() != 0) {
             dropLines(Collections.max(erasedLines) + 1);
         }
