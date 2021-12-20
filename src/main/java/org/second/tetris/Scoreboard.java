@@ -44,6 +44,7 @@ public class Scoreboard extends Application {
 
     @Override
     public void start(Stage stage) {
+        //界面关闭。
         stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
             @Override
             public void handle(WindowEvent event) {
