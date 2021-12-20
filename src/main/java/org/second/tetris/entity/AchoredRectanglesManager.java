@@ -87,7 +87,7 @@ public class AchoredRectanglesManager {
     }
 
     /**
-     * 获取
+     * 获取最高有块坐标
      *
      * @return
      */

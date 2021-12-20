@@ -55,6 +55,9 @@ public class Tetris extends Application {
     private static long speed = 1000;
     private Stage stage;
 
+    /**
+     * 背景和框图创建
+     */
     private void drawBackgroud() {
         score = new GameScorePane(LEFT + XMAX, TOP + YMAX * SIZE + SIZE, SIZE, 0);
         game.getChildren().add(score);
@@ -89,6 +92,7 @@ public class Tetris extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
+        isOver = false;
         this.stage = stage;
         Random random = new Random();
         URL music = Tetris.class.getResource(random.nextInt(3) + 1 + ".mp3");
@@ -141,7 +145,13 @@ public class Tetris extends Application {
     }
 
     private void exit() {
-        System.exit(0);
+        stopFall();
+        stage.close();
+        try {
+            new HelloApplication().start(new Stage());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private void stopFall() {
