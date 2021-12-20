@@ -15,6 +15,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -43,6 +44,12 @@ public class Scoreboard extends Application {
 
     @Override
     public void start(Stage stage) {
+        stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+            @Override
+            public void handle(WindowEvent event) {
+                System.exit(0);
+            }
+        });
         Scene scene = new Scene(new Group());
         VBox vbox = new VBox();
         vbox.setSpacing(20);

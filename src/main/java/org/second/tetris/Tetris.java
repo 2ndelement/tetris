@@ -4,9 +4,11 @@ import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundImage;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -53,6 +55,7 @@ public class Tetris extends Application {
     private static TimerTask fall = null;
     private static int holdCount = 0;
     private static long speed = 1000;
+    private Button button = new Button();
     private Stage stage;
 
     /**
@@ -60,6 +63,9 @@ public class Tetris extends Application {
      */
     private void drawBackgroud() {
         score = new GameScorePane(LEFT + XMAX, TOP + YMAX * SIZE + SIZE, SIZE, 0);
+        /*button.setText("返回主界面");
+        HBox hbox = new HBox();
+        hbox.getChildren().addAll(score,button);*/
         game.getChildren().add(score);
         nextPanes[0] = new ShapePane(LEFT + XMAX * SIZE + 10, TOP, SIZE / 2, 0);
         nextPanes[1] = new ShapePane(LEFT + XMAX * SIZE + 10, TOP + 6 * SIZE / 2, SIZE / 2, 0);
@@ -128,11 +134,11 @@ public class Tetris extends Application {
                                 if (isOver) {
                                     try {
                                         HelloApplication.getUser().addRecord(score.getScore());
+
                                     } catch (IOException e) {
                                         e.printStackTrace();
                                     }
                                     exit();
-
                                 } else {
                                     MoveDown();
                                 }
@@ -350,5 +356,8 @@ public class Tetris extends Application {
 
     public static void main(String[] args) {
         launch();
+    }
+    public void close(){
+        stage.close();
     }
 }
