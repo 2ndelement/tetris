@@ -1,3 +1,7 @@
 #pane {
     --fx-background-image: url("1.jpg");
 }
+
+.anchor {
+    -fx-background-image: url("2.jpg");
+}
