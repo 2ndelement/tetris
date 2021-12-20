@@ -17,6 +17,7 @@ import java.util.StringTokenizer;
  *
  * @author 柴福林
  * @version 1.0
+ * test
  */
 public class HelloApplication extends Application {
     private static Stage pristage;
