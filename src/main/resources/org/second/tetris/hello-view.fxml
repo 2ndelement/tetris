@@ -6,15 +6,15 @@
 
 <AnchorPane fx:id="hello" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="660.0" prefWidth="1300.0" styleClass="anchor" stylesheets="@style.css" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.second.tetris.controller.HelloController">
    <children>
-      <Button layoutX="569.0" layoutY="246.0" mnemonicParsing="false" onAction="#onSinglePlayerModeClick" prefHeight="51.0" prefWidth="163.0" text="单 机 模 式">
+      <Button layoutX="569.0" layoutY="246.0" mnemonicParsing="false" onAction="#onSinglePlayerModeClick" prefHeight="51.0" prefWidth="163.0" text="单 机 模 式" textFill="WHITE">
          <font>
             <Font size="14.0" />
          </font></Button>
-      <Button layoutX="569.0" layoutY="349.0" mnemonicParsing="false" onAction="#onScoreRecordClick" prefHeight="51.0" prefWidth="163.0" text="得分记录">
+      <Button layoutX="569.0" layoutY="349.0" mnemonicParsing="false" onAction="#onScoreRecordClick" prefHeight="51.0" prefWidth="163.0" text="得分记录" textFill="WHITE">
          <font>
             <Font name="ZhenyanGB Regular" size="14.0" />
          </font></Button>
-      <Button layoutX="569.0" layoutY="451.0" mnemonicParsing="false" onAction="#onGameIntroductionClick" prefHeight="51.0" prefWidth="163.0" text="游戏介绍">
+      <Button layoutX="569.0" layoutY="451.0" mnemonicParsing="false" onAction="#onGameIntroductionClick" prefHeight="51.0" prefWidth="163.0" text="游戏介绍" textFill="WHITE">
          <font>
             <Font name="ZhenyanGB Regular" size="14.0" />
          </font></Button>
