@@ -5,3 +5,15 @@
 .anchor {
     -fx-background-image: url("2.jpg");
 }
+
+.button {
+    -fx-background-color:linear-gradient(to right,#00fffc,#fff600);;
+    -fx-background-radius:20;
+    -fx-border-radius:20;
+    -fx-border-style:;
+    -fx-background-insets: 5;
+}
+
+.button:hover{
+     -fx-background-color:#00E6E3;
+}
