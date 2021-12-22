@@ -8,8 +8,8 @@
 
 .button {
     -fx-background-color:linear-gradient(to right,#58A0E8,#0030B0);;
-    -fx-background-radius:5;
-    -fx-border-radius:5;
+    -fx-background-radius:20;
+    -fx-border-radius:20;
     -fx-background-insets: 5;
 }
 
