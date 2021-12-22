@@ -1,27 +1,56 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
 <AnchorPane fx:id="hello" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="660.0" prefWidth="1300.0" styleClass="anchor" stylesheets="@style.css" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.second.tetris.controller.HelloController">
    <children>
-      <Button layoutX="569.0" layoutY="246.0" mnemonicParsing="false" onAction="#onSinglePlayerModeClick" prefHeight="51.0" prefWidth="163.0" text="单 机 模 式" textFill="WHITE">
-         <font>
-            <Font size="14.0" />
-         </font></Button>
-      <Button layoutX="569.0" layoutY="349.0" mnemonicParsing="false" onAction="#onScoreRecordClick" prefHeight="51.0" prefWidth="163.0" text="得分记录" textFill="WHITE">
-         <font>
-            <Font name="ZhenyanGB Regular" size="14.0" />
-         </font></Button>
-      <Button layoutX="569.0" layoutY="451.0" mnemonicParsing="false" onAction="#onGameIntroductionClick" prefHeight="51.0" prefWidth="163.0" text="游戏介绍" textFill="WHITE">
-         <font>
-            <Font name="ZhenyanGB Regular" size="14.0" />
-         </font></Button>
       <Label fx:id="homePage" alignment="CENTER" layoutX="548.0" layoutY="132.0" prefHeight="18.0" prefWidth="205.0" text="这是一条LOGO">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
       </Label>
+      <VBox layoutX="430.0" layoutY="280.0" prefHeight="213.0" prefWidth="441.0">
+         <children>
+            <Button mnemonicParsing="false" onAction="#onSinglePlayerModeClick" prefHeight="51.0" prefWidth="441.0" text="单 人 模 式" textFill="WHITE">
+               <font>
+                  <Font name="Microsoft YaHei Bold" size="14.0" />
+               </font>
+            </Button>
+            <Button mnemonicParsing="false" onAction="#onMultiplePlayerModeClick" prefHeight="51.0" prefWidth="441.0" text="多 人 模 式" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+               <VBox.margin>
+                  <Insets top="30.0" />
+               </VBox.margin>
+            </Button>
+            <HBox prefHeight="82.0" prefWidth="434.0">
+               <children>
+                  <Button mnemonicParsing="false" onAction="#onScoreRecordClick" prefHeight="51.0" prefWidth="205.0" text="得分记录" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets right="31.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button mnemonicParsing="false" onAction="#onGameIntroductionClick" prefHeight="51.0" prefWidth="205.0" text="游戏介绍" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </Button>
+               </children>
+               <padding>
+                  <Insets top="30.0" />
+               </padding>
+            </HBox>
+         </children>
+      </VBox>
    </children>
 </AnchorPane>

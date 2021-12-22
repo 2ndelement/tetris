@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="660.0" prefWidth="1300.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.second.tetris.controller.IntroductionController">
+   <children>
+      <Label layoutX="254.0" layoutY="173.0" prefHeight="15.0" prefWidth="176.0" text="这是游戏介绍" />
+   </children>
+</AnchorPane>
