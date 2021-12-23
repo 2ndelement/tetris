@@ -7,21 +7,21 @@
 
 <AnchorPane fx:id="hello" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="660.0" prefWidth="1300.0" styleClass="anchor" stylesheets="@style.css" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.second.tetris.controller.HelloController">
    <children>
-      <Label fx:id="homePage" alignment="CENTER" layoutX="548.0" layoutY="132.0" prefHeight="18.0" prefWidth="205.0" text="这是一条LOGO">
+      <Label fx:id="homePage" alignment="CENTER" layoutX="548.0" layoutY="165.0" prefHeight="18.0" prefWidth="205.0" text="这是一条LOGO">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
       </Label>
       <VBox layoutX="430.0" layoutY="280.0" prefHeight="213.0" prefWidth="441.0">
          <children>
-            <Button mnemonicParsing="false" onAction="#onSinglePlayerModeClick" prefHeight="51.0" prefWidth="441.0" text="单 人 模 式" textFill="WHITE">
+            <Button mnemonicParsing="false" onAction="#onSinglePlayerModeClick" prefHeight="51.0" prefWidth="441.0" text="单  人  模  式 " textFill="WHITE">
                <font>
-                  <Font name="Microsoft YaHei Bold" size="14.0" />
+                  <Font name="Microsoft YaHei Bold" size="15.0" />
                </font>
             </Button>
-            <Button mnemonicParsing="false" onAction="#onMultiplePlayerModeClick" prefHeight="51.0" prefWidth="441.0" text="多 人 模 式" textFill="WHITE">
+            <Button mnemonicParsing="false" onAction="#onMultiplePlayerModeClick" prefHeight="51.0" prefWidth="441.0" text="多  人  模  式" textFill="WHITE">
                <font>
-                  <Font name="System Bold" size="14.0" />
+                  <Font name="System Bold" size="15.0" />
                </font>
                <VBox.margin>
                   <Insets top="30.0" />

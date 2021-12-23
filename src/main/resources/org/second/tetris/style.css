@@ -1,5 +1,5 @@
 #pane {
-    --fx-background-image: url("1.jpg");
+    --fx-background-image: url("2.jpg");
 }
 
 .anchor {
@@ -7,12 +7,17 @@
 }
 
 .button {
-    -fx-background-color:linear-gradient(to right,#58A0E8,#0030B0);;
+    -fx-background-color: linear-gradient(to left, #243949 0%, #517fa4 100%);
     -fx-background-radius:20;
     -fx-border-radius:20;
-    -fx-background-insets: 5;
+    -fx-background-insets: 0;
 }
 
 .button:hover{
-     -fx-background-color:#0030B0;
+     -fx-background-color:#243949;
+}
+
+.button:focused{
+    -fx-border-width: 3px;
+    -fx-border-color: #DBC6B6;
 }
